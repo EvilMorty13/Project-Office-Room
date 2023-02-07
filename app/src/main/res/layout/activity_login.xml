@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2C452D"
+    android:orientation="vertical"
+    tools:context=".LoginActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:transitionName="officeRoomLogoImage"
+        android:layout_height="430dp"
+        android:src="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/officRoomNameId"
+        android:transitionName="officeRoomText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="250dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/bungee"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="#6DCD71"
+        android:textSize="30dp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="15dp"
+        android:layout_below="@id/officRoomNameId">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/loginMailId"
+            android:transitionName="transitionMail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxStrokeColor="#6DCD71"
+            app:hintTextColor="#6DCD71"
+            android:layout_marginBottom="10dp"
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="E-mail"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/loginPasswordId"
+            android:transitionName="transitionPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true"
+            android:layout_marginBottom="10dp"
+            app:boxStrokeColor="#6DCD71"
+            app:hintTextColor="#6DCD71"
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:inputType="textPassword"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/signInButtonId"
+            android:transitionName="transitionSignToReg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#6DCD71"
+            android:text="Sign in"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:textAllCaps="false"
+            />
+
+        <Button
+            android:id="@+id/signUpButtonId"
+            android:transitionName="transitionRegToSign"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#2C452D"
+            android:text="Don't have account? Create one"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:textAllCaps="false"
+            />
+
+    </LinearLayout>
+    
+
+
+
+</RelativeLayout>

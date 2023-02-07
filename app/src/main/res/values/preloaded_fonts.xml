@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/</item>
+        <item>@font/aguafina_script</item>
+        <item>@font/audiowide</item>
+        <item>@font/bevan</item>
+        <item>@font/bungee</item>
+        <item>@font/carter_one</item>
+        <item>@font/courgette</item>
+        <item>@font/patua_one</item>
+        <item>@font/sarpanch_semibold</item>
+    </array>
+</resources>
