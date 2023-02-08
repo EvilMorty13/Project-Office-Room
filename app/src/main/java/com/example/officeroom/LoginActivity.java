@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(ContextCompat.getColor(LoginActivity.this,R.color.backgroundColor));
 
         findAllId();
-
+        //test commit
         registrationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
