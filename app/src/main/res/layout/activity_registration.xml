@@ -8,13 +8,14 @@
     tools:context=".RegistrationActivity">
 
     <ImageView
+        android:id="@+id/regOfficeRoomLogoId"
         android:layout_width="match_parent"
         android:transitionName="officeRoomLogoImage"
         android:layout_height="300dp"
         android:src="@drawable/logo" />
 
     <TextView
-        android:id="@+id/officRoomNameId"
+        android:id="@+id/regOfficRoomNameId"
         android:transitionName="officeRoomText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,7 +34,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_margin="15dp"
-        android:layout_below="@id/officRoomNameId">
+        android:layout_below="@id/regOfficRoomNameId">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/fullNameId"

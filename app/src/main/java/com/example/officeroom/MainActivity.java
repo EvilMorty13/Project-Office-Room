@@ -7,6 +7,7 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Pair;
 import android.view.View;
 import android.view.animation.Animation;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     ImageView officeRoomLogo;
     TextView officeRoomText,sloganText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent,options.toBundle());
             }
         },SPLASH_DURATION);
+
     }
 
     private void findAllId() {

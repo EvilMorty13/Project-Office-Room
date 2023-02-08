@@ -11,6 +11,8 @@ import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
@@ -19,6 +21,9 @@ import com.google.android.material.textfield.TextInputLayout;
 public class LoginActivity extends AppCompatActivity {
 
     private static int SPLASH_DURATION = 50;
+
+    ImageView loginOfficeLogo;
+    TextView loginOfficeText;
     TextInputLayout loginMail,loginPassword;
     Button loginButton,registrationButton;
 
@@ -37,15 +42,16 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Intent intent = new Intent(LoginActivity.this,RegistrationActivity.class);
-                        Pair[] pairs = new Pair[4];
+                        Pair[] pairs = new Pair[6];
                         pairs[0] = new Pair<View,String>(loginMail,"transitionMail");
                         pairs[1] = new Pair<View,String>(loginPassword,"transitionPassword");
                         pairs[2] = new Pair<View,String>(loginButton,"transitionSignToReg");
                         pairs[3] = new Pair<View,String>(registrationButton,"transitionRegToSign");
+                        pairs[4] = new Pair<View,String>(loginOfficeLogo,"officeRoomLogoImage");
+                        pairs[5] = new Pair<View,String>(loginOfficeText,"officeRoomText");
 
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this,pairs);
                         startActivity(intent,options.toBundle());
-
                     }
                 },SPLASH_DURATION);
             }
@@ -57,5 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         loginPassword = (TextInputLayout) findViewById(R.id.loginPasswordId);
         loginButton = (Button) findViewById(R.id.signInButtonId);
         registrationButton = (Button) findViewById(R.id.signUpButtonId);
+        loginOfficeLogo = (ImageView) findViewById(R.id.loginOfficeLogoId);
+        loginOfficeText = (TextView) findViewById(R.id.loginOfficRoomNameId);
     }
 }
