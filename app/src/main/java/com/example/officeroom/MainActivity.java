@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static int SPLASH_DURATION = 4000;
+    private static int SPLASH_DURATION = 2300;
 
     Animation topAnim,bottomAnim;
 
