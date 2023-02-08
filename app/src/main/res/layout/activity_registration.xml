@@ -27,7 +27,7 @@
         android:gravity="center"
         android:text="@string/app_name"
         android:textColor="#6DCD71"
-        android:textSize="30dp" />
+        android:textSize="30sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -128,7 +128,7 @@
             android:backgroundTint="#6DCD71"
             android:text="Create Account"
             android:textColor="@color/white"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textAllCaps="false"
             />
 
@@ -140,7 +140,7 @@
             android:backgroundTint="#2C452D"
             android:text="Go for sign in"
             android:textColor="@color/white"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textAllCaps="false"
             />
 

@@ -27,7 +27,7 @@
         android:gravity="center"
         android:text="@string/app_name"
         android:textColor="#6DCD71"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:transitionName="officeRoomText" />
 
 
@@ -88,7 +88,7 @@
             android:backgroundTint="#6DCD71"
             android:text="Sign in"
             android:textColor="@color/white"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textAllCaps="false"
             />
 
@@ -100,7 +100,7 @@
             android:backgroundTint="#2C452D"
             android:text="Don't have an account? Create one"
             android:textColor="@color/white"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textAllCaps="false"
             />
 
