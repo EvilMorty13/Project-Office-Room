@@ -5,46 +5,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#2C452D"
-    tools:context=".LoginActivity">
+    tools:context=".JoinOfficeActivity">
 
     <ImageView
-        android:id="@+id/loginOfficeLogoId"
-        android:layout_width="match_parent"
-        android:transitionName="officeRoomLogoImage"
-        android:layout_height="430dp"
-        android:src="@drawable/logo" />
+        android:id="@+id/joinOfficeLogoId"
+        android:layout_width="271dp"
+        android:layout_height="287dp"
+        android:layout_marginLeft="-70dp"
+        android:layout_marginTop="-40dp"
+        android:src="@drawable/logo"
+        android:transitionName="officeRoomLogoImage" />
 
     <TextView
-        android:id="@+id/loginOfficRoomNameId"
-        android:layout_width="match_parent"
+        android:id="@+id/joinOfficeRoomNameId"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="250dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="58dp"
+
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="130dp"
         android:fontFamily="@font/audiowide"
         android:gravity="center"
-        android:text="@string/app_name"
+        android:text="JOIN OFFICE"
         android:textColor="#6DCD71"
         android:textSize="30sp"
         android:transitionName="officeRoomText" />
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_margin="15dp"
-        android:layout_below="@+id/loginOfficRoomNameId"
+        android:layout_below="@+id/joinOfficeRoomNameId"
         >
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/loginMailId"
+            android:id="@+id/joinOfficeId"
             android:transitionName="transitionMail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:boxStrokeColor="#6DCD71"
             app:hintTextColor="#6DCD71"
+            app:passwordToggleEnabled="true"
+
             android:layout_marginBottom="10dp"
             android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -53,12 +57,13 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="E-mail"
+                android:inputType="textPassword"
+                android:hint="Office ID"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/loginPasswordId"
+            android:id="@+id/joinRankId"
             android:transitionName="transitionPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -74,35 +79,34 @@
                 android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
+                android:hint="Rank ID"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/signInButtonId"
+            android:id="@+id/joinOfficeSignInButtonId"
             android:transitionName="transitionSignToReg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#6DCD71"
-            android:text="Sign in"
+            android:text="Join Office"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textAllCaps="false"
             />
 
         <Button
-            android:id="@+id/signUpButtonId"
+            android:id="@+id/joinOfficeSignUpButtonId"
             android:transitionName="transitionRegToSign"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#2C452D"
-            android:text="Don't have an account? Create one"
+            android:text="Create Office"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textAllCaps="false"
             />
 
     </LinearLayout>
-
 
 </RelativeLayout>

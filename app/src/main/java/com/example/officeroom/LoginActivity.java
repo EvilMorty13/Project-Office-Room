@@ -43,7 +43,9 @@ public class LoginActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(ContextCompat.getColor(LoginActivity.this,R.color.backgroundColor));
 
         findAllId();
-        //test commit
+
+
+
         registrationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,8 +76,9 @@ public class LoginActivity extends AppCompatActivity {
 
                 boolean checked = checkConditions(text_mail,text_password);
 
-                if(checked) loginAccount(text_mail,text_password);
-
+                if(checked) {
+                    loginAccount(text_mail, text_password);
+                }
             }
         });
     }
@@ -85,7 +88,22 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(LoginActivity.this,JoinOfficeActivity.class);
+                            Pair[] pairs = new Pair[6];
+                            pairs[0] = new Pair<View,String>(loginMail,"transitionMail");
+                            pairs[1] = new Pair<View,String>(loginPassword,"transitionPassword");
+                            pairs[2] = new Pair<View,String>(loginButton,"transitionSignToReg");
+                            pairs[3] = new Pair<View,String>(registrationButton,"transitionRegToSign");
+                            pairs[4] = new Pair<View,String>(loginOfficeLogo,"officeRoomLogoImage");
+                            pairs[5] = new Pair<View,String>(loginOfficeText,"officeRoomText");
+
+                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this,pairs);
+                            startActivity(intent,options.toBundle());
+                        }
+                    },SPLASH_DURATION);
                 }else{
                     Toast.makeText(LoginActivity.this, "Incorrect password", Toast.LENGTH_SHORT).show();
                 }
