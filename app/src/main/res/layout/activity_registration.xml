@@ -138,7 +138,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#2C452D"
-            android:text="Go for sign in"
+            android:text="Already have an account? Go for sign in"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textAllCaps="false"

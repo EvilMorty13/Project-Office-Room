@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         getWindow().setStatusBarColor(ContextCompat.getColor(LoginActivity.this,R.color.backgroundColor));
-
+        getWindow().setNavigationBarColor(ContextCompat.getColor(LoginActivity.this,R.color.backgroundColor));
         findAllId();
 
 

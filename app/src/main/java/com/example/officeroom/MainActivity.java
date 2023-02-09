@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getWindow().setStatusBarColor(ContextCompat.getColor(MainActivity.this,R.color.backgroundColor));
-
+        getWindow().setNavigationBarColor(ContextCompat.getColor(MainActivity.this,R.color.backgroundColor));
         findAllId();
 
         officeRoomLogo.setAnimation(topAnim);

@@ -32,8 +32,6 @@ public class RegistrationActivity extends AppCompatActivity {
     ImageView regOfficeRoomLogo;
     TextView regOfficeText;
     TextInputLayout fullName,regMail,regPassword,regConfirmPassword;
-
-    //TextInputEditText fullNameText,regMailText,regPasswordText,regConfirmPasswordText;
     Button regCreateAccount,regSignIn;
 
     FirebaseAuth auth;
@@ -43,7 +41,7 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         getWindow().setStatusBarColor(ContextCompat.getColor(RegistrationActivity.this,R.color.backgroundColor));
-
+        getWindow().setNavigationBarColor(ContextCompat.getColor(RegistrationActivity.this,R.color.backgroundColor));
         findAllId();
 
         regCreateAccount.setOnClickListener(new View.OnClickListener() {
@@ -64,26 +62,32 @@ public class RegistrationActivity extends AppCompatActivity {
         regSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent intent = new Intent(RegistrationActivity.this,LoginActivity.class);
 
-                        Pair[] pairs = new Pair[6];
-                        pairs[0] = new Pair<View,String>(regMail,"transitionMail");
-                        pairs[1] = new Pair<View,String>(regPassword,"transitionPassword");
-                        pairs[2] = new Pair<View,String>(regCreateAccount,"transitionSignToReg");
-                        pairs[3] = new Pair<View,String>(regSignIn,"transitionRegToSign");
-                        pairs[4] = new Pair<View,String>(regOfficeRoomLogo,"officeRoomLogoImage");
-                        pairs[5] = new Pair<View,String>(regOfficeText,"officeRoomText");
+                RegistrationToLoginAnimation();
 
-                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(RegistrationActivity.this,pairs);
-                        startActivity(intent,options.toBundle());
-                    }
-                },SPLASH_DURATION);
             }
         });
 
+    }
+
+    private void RegistrationToLoginAnimation() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(RegistrationActivity.this,LoginActivity.class);
+
+                Pair[] pairs = new Pair[6];
+                pairs[0] = new Pair<View,String>(regMail,"transitionMail");
+                pairs[1] = new Pair<View,String>(regPassword,"transitionPassword");
+                pairs[2] = new Pair<View,String>(regCreateAccount,"transitionSignToReg");
+                pairs[3] = new Pair<View,String>(regSignIn,"transitionRegToSign");
+                pairs[4] = new Pair<View,String>(regOfficeRoomLogo,"officeRoomLogoImage");
+                pairs[5] = new Pair<View,String>(regOfficeText,"officeRoomText");
+
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(RegistrationActivity.this,pairs);
+                startActivity(intent,options.toBundle());
+            }
+        },SPLASH_DURATION);
     }
 
     private void registerAccount(String text_mail, String text_password) {
@@ -92,6 +96,7 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(RegistrationActivity.this, "Account Created", Toast.LENGTH_SHORT).show();
+                    RegistrationToLoginAnimation();
                 }else{
                     Toast.makeText(RegistrationActivity.this, "Server Problem", Toast.LENGTH_SHORT).show();
                 }
@@ -142,6 +147,4 @@ public class RegistrationActivity extends AppCompatActivity {
         regOfficeRoomLogo = (ImageView) findViewById(R.id.regOfficeRoomLogoId);
         regOfficeText = (TextView) findViewById(R.id.regOfficRoomNameId);
     }
-
-
 }
