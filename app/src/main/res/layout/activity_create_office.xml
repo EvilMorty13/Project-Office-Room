@@ -24,7 +24,7 @@
         android:layout_marginTop="58dp"
 
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="50dp"
         android:fontFamily="@font/audiowide"
         android:gravity="center"
         android:text="CREATE OFFICE"
@@ -109,7 +109,83 @@
             android:layout_height="1dp"
             android:background="@color/black"/>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxStrokeColor="#6DCD71"
+            app:hintTextColor="#6DCD71"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            >
 
+            <AutoCompleteTextView
+                android:id="@+id/createAddRankId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select Rank"
+                android:inputType="none"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/createRankID_Id"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            app:boxStrokeColor="#6DCD71"
+            app:hintTextColor="#6DCD71"
+            android:layout_marginBottom="10dp"
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Rank ID"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="All done?"
+            android:textColor="@color/black"
+            android:gravity="center"/>
+
+        <View
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/black"/>
+
+        <Button
+            android:id="@+id/createOfficeRegButtonId"
+            android:transitionName="transitionSignToReg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#6DCD71"
+            android:text="Create Office"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            android:textSize="15sp"
+            android:textAllCaps="false"
+            />
+
+        <Button
+            android:id="@+id/createOfficeSignInButtonId"
+            android:transitionName="transitionRegToSign"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#2C452D"
+            android:text="Already have? Go for join in"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textAllCaps="false"
+            />
+        
     </LinearLayout>
 
 </RelativeLayout>
