@@ -60,7 +60,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/createOfficeID_Id"
             android:layout_width="match_parent"
-
+            android:transitionName="transitionMail"
             android:layout_height="wrap_content"
             app:boxStrokeColor="#6DCD71"
             app:hintTextColor="#6DCD71"
@@ -91,7 +91,7 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
 
-               android:hint="Select One"
+               android:hint="Office type"
                android:inputType="none"
                />
         </com.google.android.material.textfield.TextInputLayout>
@@ -132,7 +132,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/createRankID_Id"
             android:layout_width="match_parent"
-
+            android:transitionName="transitionPassword"
             android:layout_height="wrap_content"
             app:boxStrokeColor="#6DCD71"
             app:hintTextColor="#6DCD71"
@@ -185,7 +185,7 @@
             android:textSize="15sp"
             android:textAllCaps="false"
             />
-        
+
     </LinearLayout>
 
 </RelativeLayout>

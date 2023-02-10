@@ -48,7 +48,6 @@
             app:boxStrokeColor="#6DCD71"
             app:hintTextColor="#6DCD71"
             app:passwordToggleEnabled="true"
-
             android:layout_marginBottom="10dp"
             android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

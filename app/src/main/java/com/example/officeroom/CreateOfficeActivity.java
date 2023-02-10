@@ -9,12 +9,25 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CreateOfficeActivity extends AppCompatActivity {
+
+    ImageView createOfficeLogo;
+    TextView createOfficeNameText;
+
+    TextInputLayout createOfficeName,createOfficeId,createRankId;
+
+    Button createOfficeButton,createJoinOfficeButton;
+
 
     String[] items = {"Institute","Software Farm","Factory"};
     String[] institute_ranks = {"Dean","Professor","Assistant Professor","Lecturer","Assistant","Lab Assistant"};
@@ -38,8 +51,6 @@ public class CreateOfficeActivity extends AppCompatActivity {
                 String item = adapterView.getItemAtPosition(i).toString();
                 Toast.makeText(CreateOfficeActivity.this, "selected "+item, Toast.LENGTH_SHORT).show();
                 autoCompleteText2.setText(null);
-                autoCompleteText2.setFocusable(false);
-
                 if(item.equals("Institute")){
                     arrayAdapter2 = new ArrayAdapter<>(CreateOfficeActivity.this,R.layout.list_item,institute_ranks);
                 }
@@ -68,5 +79,14 @@ public class CreateOfficeActivity extends AppCompatActivity {
         autoCompleteText.setAdapter(arrayAdapter);
 
         autoCompleteText2 = findViewById(R.id.createAddRankId);
+
+        createOfficeLogo = findViewById(R.id.createOfficeLogoId);
+        createOfficeNameText = findViewById(R.id.createOfficeRoomNameId);
+        createOfficeName = findViewById(R.id.createOfficeNameId);
+        createOfficeId = findViewById(R.id.createOfficeID_Id);
+        createRankId = findViewById(R.id.createRankID_Id);
+
+        createOfficeButton = findViewById(R.id.createOfficeRegButtonId);
+        createJoinOfficeButton = findViewById(R.id.createOfficeSignInButtonId);
     }
 }
