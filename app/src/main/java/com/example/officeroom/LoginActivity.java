@@ -27,7 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static int SPLASH_DURATION = 50;
+    private static int SPLASH_DURATION = 30;
 
     ImageView loginOfficeLogo;
     TextView loginOfficeText;

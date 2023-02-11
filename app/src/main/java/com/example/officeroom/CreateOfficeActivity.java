@@ -4,10 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.icu.text.Transliterator;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,6 +32,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CreateOfficeActivity extends AppCompatActivity {
+
+    private static int SPLASH_DURATION = 50;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -59,6 +65,13 @@ public class CreateOfficeActivity extends AppCompatActivity {
         String unique_office_id = new UniqueIdGenerator().generateID();
         createOfficeId.getEditText().setText(unique_office_id);
 
+        createJoinOfficeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createOfficeToJoinOffice();
+            }
+        });
+
         createOfficeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,15 +94,15 @@ public class CreateOfficeActivity extends AppCompatActivity {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        Toast.makeText(CreateOfficeActivity.this, "Room for "+element.getValue(), Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(CreateOfficeActivity.this, "Room for "+element.getValue(), Toast.LENGTH_SHORT).show();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(CreateOfficeActivity.this, "Failed for "+element.getValue(), Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(CreateOfficeActivity.this, "Failed for "+element.getValue(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
-                    }
+                    }createOfficeToJoinOffice();
                 }
             }
         });
@@ -110,6 +123,8 @@ public class CreateOfficeActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String item = adapterView.getItemAtPosition(i).toString();
+                String unique_office_id_v2 = new UniqueIdGenerator().generateID();
+                createOfficeId.getEditText().setText(unique_office_id_v2);
                 Toast.makeText(CreateOfficeActivity.this, "selected "+item, Toast.LENGTH_SHORT).show();
                 autoCompleteText2.setText(null);
                 if(item.equals("Institute")){
@@ -132,6 +147,25 @@ public class CreateOfficeActivity extends AppCompatActivity {
                 Toast.makeText(CreateOfficeActivity.this, "Selected "+item, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void createOfficeToJoinOffice() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(CreateOfficeActivity.this,JoinOfficeActivity.class);
+                Pair[] pairs = new Pair[6];
+                pairs[0] = new Pair<View,String>(createOfficeId,"transitionMail");
+                pairs[1] = new Pair<View,String>(createRankId,"transitionPassword");
+                pairs[2] = new Pair<View,String>(createOfficeButton,"transitionSignToReg");
+                pairs[3] = new Pair<View,String>(createJoinOfficeButton,"transitionRegToSign");
+                pairs[4] = new Pair<View,String>(createOfficeLogo,"officeRoomLogoImage");
+                pairs[5] = new Pair<View,String>(createOfficeNameText,"officeRoomText");
+
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(CreateOfficeActivity.this,pairs);
+                startActivity(intent,options.toBundle());
+            }
+        },SPLASH_DURATION);
     }
 
     private boolean checkConditions(String text_office_name, String text_office_id, String text_office_type) {

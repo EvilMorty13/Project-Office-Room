@@ -1,5 +1,6 @@
 package com.example.officeroom;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -13,8 +14,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class JoinOfficeActivity extends AppCompatActivity {
 
@@ -26,6 +32,8 @@ public class JoinOfficeActivity extends AppCompatActivity {
 
     Button joinOfficeSignInButton,joinOfficeSignUpButton;
 
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +41,29 @@ public class JoinOfficeActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(ContextCompat.getColor(JoinOfficeActivity.this,R.color.backgroundColor));
         getWindow().setNavigationBarColor(ContextCompat.getColor(JoinOfficeActivity.this,R.color.backgroundColor));
         findAllId();
+
+        joinOfficeSignInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text_office_id = joinOfficeInputId.getEditText().getText().toString();
+                String text_rank_id = joinRankInputId.getEditText().getText().toString();
+                db.collection(text_office_id).document(text_rank_id).get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                if(documentSnapshot.exists()){
+                                    Toast.makeText(JoinOfficeActivity.this, "Join Office Successful", Toast.LENGTH_SHORT).show();
+                                }else
+                                    Toast.makeText(JoinOfficeActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(JoinOfficeActivity.this, "Server problem", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        });
 
         joinOfficeSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
