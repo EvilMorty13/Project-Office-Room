@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import android.icu.text.Transliterator;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -66,25 +67,29 @@ public class CreateOfficeActivity extends AppCompatActivity {
                 String text_office_ID = createOfficeId.getEditText().getText().toString();
                 String text_office_type = autoCompleteText.getText().toString();
 
-                for(Map.Entry <String,String> element : ranks.entrySet()){
-                    HashMap<String,Object> info = new HashMap<>();
-                    String text_rank_name = element.getValue().toString();
-                    info.put("Office name",text_office_name);
-                    info.put("Office type",text_office_type);
-                    info.put("Rank name",element.getValue());
+                boolean checked = checkConditions(text_office_name,text_office_ID,text_office_type);
 
-                    db.collection(text_office_ID).document(element.getKey()).set(info)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(CreateOfficeActivity.this, "Room for "+element.getValue(), Toast.LENGTH_SHORT).show();
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(CreateOfficeActivity.this, "Failed for "+element.getValue(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                if(checked) {
+                    for(Map.Entry <String,String> element : ranks.entrySet()){
+                        HashMap<String,Object> info = new HashMap<>();
+                        String text_rank_name = element.getValue().toString();
+                        info.put("Office name",text_office_name);
+                        info.put("Office type",text_office_type);
+                        info.put("Rank name",element.getValue());
+
+                        db.collection(text_office_ID).document(element.getKey()).set(info)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(CreateOfficeActivity.this, "Room for "+element.getValue(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(CreateOfficeActivity.this, "Failed for "+element.getValue(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    }
                 }
             }
         });
@@ -127,6 +132,45 @@ public class CreateOfficeActivity extends AppCompatActivity {
                 Toast.makeText(CreateOfficeActivity.this, "Selected "+item, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private boolean checkConditions(String text_office_name, String text_office_id, String text_office_type) {
+        if(TextUtils.isEmpty(text_office_name) && TextUtils.isEmpty(text_office_id) && TextUtils.isEmpty(text_office_type)){
+            Toast.makeText(this, "Enter Office Name, Id and Type", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        else if(TextUtils.isEmpty(text_office_name) && TextUtils.isEmpty(text_office_id)){
+            Toast.makeText(this, "Enter Office Name and Id ", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        else if(TextUtils.isEmpty(text_office_name) && TextUtils.isEmpty(text_office_type)){
+            Toast.makeText(this, "Enter Office Name and Type", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        else if(TextUtils.isEmpty(text_office_id) && TextUtils.isEmpty(text_office_type)){
+            Toast.makeText(this, "Enter Office Id and Type", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        else if(TextUtils.isEmpty(text_office_name)) {
+            Toast.makeText(this, "Enter Office Name", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        else if(TextUtils.isEmpty(text_office_id)) {
+            Toast.makeText(this, "Enter Office Id", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        else if(TextUtils.isEmpty(text_office_type)) {
+            Toast.makeText(this, "Enter Office Type", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
     }
 
     private void findAllId() {
