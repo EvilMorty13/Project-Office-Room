@@ -1,5 +1,6 @@
 package com.example.officeroom;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -14,19 +15,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class CreateOfficeActivity extends AppCompatActivity {
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     ImageView createOfficeLogo;
     TextView createOfficeNameText;
 
     TextInputLayout createOfficeName,createOfficeId,createRankId;
 
-    Button createOfficeButton,createJoinOfficeButton;
+    Button createOfficeButton,createJoinOfficeButton,createRankButton;
 
 
     String[] items = {"Institute","Software Farm","Factory"};
@@ -44,6 +52,50 @@ public class CreateOfficeActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(ContextCompat.getColor(CreateOfficeActivity.this,R.color.backgroundColor));
         getWindow().setNavigationBarColor(ContextCompat.getColor(CreateOfficeActivity.this,R.color.backgroundColor));
         findAllId();
+        HashMap <String,String> ranks = new HashMap<>();
+
+        createOfficeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //HashMap<String,Object> info = new HashMap<>();
+                String text_office_name = createOfficeName.getEditText().getText().toString();
+                String text_office_ID = createOfficeId.getEditText().getText().toString();
+                String text_office_type = autoCompleteText.getText().toString();
+
+                for(Map.Entry <String,String> element : ranks.entrySet()){
+                    HashMap<String,Object> info = new HashMap<>();
+                    String text_rank_name = element.getValue().toString();
+                    info.put("Office name",text_office_name);
+                    info.put("Office type",text_office_type);
+                    info.put("Rank name",element.getValue());
+
+                    db.collection(text_office_ID).document(element.getKey()).set(info)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(CreateOfficeActivity.this, "Room for "+element.getValue(), Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(CreateOfficeActivity.this, "Failed for "+element.getValue(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
+            }
+        });
+
+
+        createRankButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text_rank_id = createRankId.getEditText().getText().toString();
+                String text_rank_name = autoCompleteText2.getText().toString();
+                ranks.put(text_rank_id,text_rank_name);
+                Toast.makeText(CreateOfficeActivity.this, "created "+text_rank_name, Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         autoCompleteText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -85,6 +137,7 @@ public class CreateOfficeActivity extends AppCompatActivity {
         createOfficeName = findViewById(R.id.createOfficeNameId);
         createOfficeId = findViewById(R.id.createOfficeID_Id);
         createRankId = findViewById(R.id.createRankID_Id);
+        createRankButton = findViewById(R.id.createRankButtonId);
 
         createOfficeButton = findViewById(R.id.createOfficeRegButtonId);
         createJoinOfficeButton = findViewById(R.id.createOfficeSignInButtonId);
