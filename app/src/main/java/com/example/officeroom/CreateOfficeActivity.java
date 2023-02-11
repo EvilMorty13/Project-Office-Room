@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 
 import android.icu.text.Transliterator;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -53,6 +54,9 @@ public class CreateOfficeActivity extends AppCompatActivity {
         getWindow().setNavigationBarColor(ContextCompat.getColor(CreateOfficeActivity.this,R.color.backgroundColor));
         findAllId();
         HashMap <String,String> ranks = new HashMap<>();
+
+        String unique_office_id = new UniqueIdGenerator().generateID();
+        createOfficeId.getEditText().setText(unique_office_id);
 
         createOfficeButton.setOnClickListener(new View.OnClickListener() {
             @Override
