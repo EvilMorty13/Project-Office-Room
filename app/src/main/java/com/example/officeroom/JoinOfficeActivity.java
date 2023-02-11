@@ -40,6 +40,7 @@ public class JoinOfficeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_join_office);
         getWindow().setStatusBarColor(ContextCompat.getColor(JoinOfficeActivity.this,R.color.backgroundColor));
         getWindow().setNavigationBarColor(ContextCompat.getColor(JoinOfficeActivity.this,R.color.backgroundColor));
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         findAllId();
 
         joinOfficeSignInButton.setOnClickListener(new View.OnClickListener() {

@@ -42,6 +42,7 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
         getWindow().setStatusBarColor(ContextCompat.getColor(RegistrationActivity.this,R.color.backgroundColor));
         getWindow().setNavigationBarColor(ContextCompat.getColor(RegistrationActivity.this,R.color.backgroundColor));
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         findAllId();
 
         regCreateAccount.setOnClickListener(new View.OnClickListener() {

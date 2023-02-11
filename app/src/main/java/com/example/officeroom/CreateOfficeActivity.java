@@ -59,6 +59,7 @@ public class CreateOfficeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_office);
         getWindow().setStatusBarColor(ContextCompat.getColor(CreateOfficeActivity.this,R.color.backgroundColor));
         getWindow().setNavigationBarColor(ContextCompat.getColor(CreateOfficeActivity.this,R.color.backgroundColor));
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         findAllId();
         HashMap <String,String> ranks = new HashMap<>();
 
