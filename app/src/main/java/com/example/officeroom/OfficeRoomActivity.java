@@ -47,6 +47,9 @@ public class OfficeRoomActivity extends AppCompatActivity {
                     case R.id.sign_out_bar:
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_id,new SignOutFragment()).commit();
                         return true;
+                    case R.id.about_us_icon:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_id,new AboutUsFragment()).commit();
+                        return true;
 
                 }
 
