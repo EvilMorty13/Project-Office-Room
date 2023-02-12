@@ -1,16 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".AddPostFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
+        android:id="@+id/addPostFragmentLogo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Add Post Fragment"
-        android:textSize="30dp"
-        android:textColor="@color/black"/>
+        android:layout_height="386dp"
+        android:layout_marginTop="-90dp"
+        android:background="@color/backgroundColor"
+        android:src="@drawable/post_announcement" />
+    
+    <LinearLayout
+        android:id="@+id/fragment_add_post_office_and_rank_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addPostFragmentLogo"
+        android:layout_marginTop="-100dp"
+        android:padding="20dp">
+        
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="125dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="@color/backgroundColor"
+            app:cardElevation="10dp"
+            android:layout_margin="10dp">
 
-</FrameLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/office_vector_icon"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="OFFICE NAME"
+                    android:textColor="#6DCD71"
+                    android:textSize="15sp"
+                    android:includeFontPadding="false"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/bungee"/>
+
+            </RelativeLayout>
+
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="125dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="@color/backgroundColor"
+            app:cardElevation="10dp"
+            android:layout_margin="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/rank_icon_version_2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="RANK"
+                    android:textColor="#6DCD71"
+                    android:textSize="15sp"
+                    android:includeFontPadding="false"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/bungee"/>
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="-20dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_below="@+id/fragment_add_post_office_and_rank_id"
+        >
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/round_green"
+            android:hint="Title"
+            android:textColorHint="#6DCD71"
+            android:layout_marginBottom="5dp"
+            android:padding="15dp"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/round_green"
+            android:hint="Rank ID"
+            android:textColorHint="#6DCD71"
+            android:layout_marginBottom="5dp"
+            android:padding="15dp"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@drawable/round_green"
+            android:hint="Announce Here"
+            android:textColorHint="#6DCD71"
+            android:layout_marginBottom="5dp"
+            android:padding="15dp"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#6DCD71"
+            android:text="Announce"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textAllCaps="false"
+            />
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>
