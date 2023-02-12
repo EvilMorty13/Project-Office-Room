@@ -53,6 +53,7 @@ public class JoinOfficeActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                 if(documentSnapshot.exists()){
+                                    startActivity(new Intent(JoinOfficeActivity.this,OfficeRoomActivity.class));
                                     Toast.makeText(JoinOfficeActivity.this, "Join Office Successful", Toast.LENGTH_SHORT).show();
                                 }else
                                     Toast.makeText(JoinOfficeActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
