@@ -3,6 +3,7 @@ package com.example.officeroom;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -30,25 +31,41 @@ public class OfficeRoomActivity extends AppCompatActivity {
     }
 
     private void bottomView() {
+
+        Bundle data = new Bundle();
+        String office_name_string = getIntent().getStringExtra("office_name_string");
+        String rank_name_string = getIntent().getStringExtra("rank_name_string");
+        String text_office_id = getIntent().getStringExtra("text_office_id");
+        String text_rank_id = getIntent().getStringExtra("text_rank_id");
+
+        data.putString("office_name_string",office_name_string);
+        data.putString("rank_name_string",rank_name_string);
+        data.putString("text_office_id",text_office_id);
+        data.putString("text_rank_id",text_rank_id);
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 switch (item.getItemId()){
                     case R.id.home_bar:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_id,new HomeFragment()).commit();
+                        fragmentTransaction.replace(R.id.fragment_container_id,new HomeFragment()).commit();
                         return true;
                     case R.id.post_bar:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_id,new AddPostFragment()).commit();
+                        AddPostFragment addPostFragment = new AddPostFragment();
+                        addPostFragment.setArguments(data);
+                        fragmentTransaction.replace(R.id.fragment_container_id,addPostFragment).commit();
                         return true;
                     case R.id.profile_bar:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_id,new ProfileFragment()).commit();
+                        fragmentTransaction.replace(R.id.fragment_container_id,new ProfileFragment()).commit();
                         return true;
                     case R.id.sign_out_bar:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_id,new SignOutFragment()).commit();
+                        fragmentTransaction.replace(R.id.fragment_container_id,new SignOutFragment()).commit();
                         return true;
                     case R.id.about_us_icon:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_id,new AboutUsFragment()).commit();
+                        fragmentTransaction.replace(R.id.fragment_container_id,new AboutUsFragment()).commit();
                         return true;
 
                 }

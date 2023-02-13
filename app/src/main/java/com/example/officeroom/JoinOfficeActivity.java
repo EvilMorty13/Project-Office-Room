@@ -53,7 +53,16 @@ public class JoinOfficeActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                 if(documentSnapshot.exists()){
-                                    startActivity(new Intent(JoinOfficeActivity.this,OfficeRoomActivity.class));
+                                    Intent intent = new Intent(JoinOfficeActivity.this,OfficeRoomActivity.class);
+                                    String office_name_string = documentSnapshot.getString("Office name");
+                                    String rank_name_string = documentSnapshot.getString("Rank name");
+
+                                    intent.putExtra("office_name_string",office_name_string);
+                                    intent.putExtra("rank_name_string",rank_name_string);
+                                    intent.putExtra("text_office_id",text_office_id);
+                                    intent.putExtra("text_rank_id",text_rank_id);
+
+                                    startActivity(intent);
                                     Toast.makeText(JoinOfficeActivity.this, "Join Office Successful", Toast.LENGTH_SHORT).show();
                                 }else
                                     Toast.makeText(JoinOfficeActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();

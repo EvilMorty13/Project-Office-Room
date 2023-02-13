@@ -43,6 +43,7 @@
                     android:layout_marginTop="10dp"/>
 
                 <TextView
+                    android:id="@+id/set_office_name_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="OFFICE NAME"
@@ -79,6 +80,7 @@
                     android:layout_marginTop="10dp"/>
 
                 <TextView
+                    android:id="@+id/set_rank_name_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="RANK"
