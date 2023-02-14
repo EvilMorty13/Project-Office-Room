@@ -48,14 +48,15 @@ public class JoinOfficeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String text_office_id = joinOfficeInputId.getEditText().getText().toString();
                 String text_rank_id = joinRankInputId.getEditText().getText().toString();
-                db.collection(text_office_id).document(text_rank_id).get()
+                db.collection(text_office_id).document(text_rank_id).collection("INFO").document("RANK INFO").get()
                         .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                 if(documentSnapshot.exists()){
                                     Intent intent = new Intent(JoinOfficeActivity.this,OfficeRoomActivity.class);
-                                    String office_name_string = documentSnapshot.getString("Office name");
-                                    String rank_name_string = documentSnapshot.getString("Rank name");
+
+                                    String office_name_string = documentSnapshot.getString("OFFICE NAME");
+                                    String rank_name_string = documentSnapshot.getString("RANK NAME");
 
                                     intent.putExtra("office_name_string",office_name_string);
                                     intent.putExtra("rank_name_string",rank_name_string);

@@ -84,23 +84,45 @@ public class CreateOfficeActivity extends AppCompatActivity {
                 boolean checked = checkConditions(text_office_name,text_office_ID,text_office_type);
 
                 if(checked) {
-                    for(Map.Entry <String,String> element : ranks.entrySet()){
-                        HashMap<String,Object> info = new HashMap<>();
-                        String text_rank_name = element.getValue().toString();
-                        info.put("Office name",text_office_name);
-                        info.put("Office type",text_office_type);
-                        info.put("Rank name",element.getValue());
 
-                        db.collection(text_office_ID).document(element.getKey()).set(info)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    HashMap <String,Object> map = new HashMap<>();
+                    map.put("OFFICE NAME",text_office_name);
+                    map.put("OFFICE ID",text_office_ID);
+                    map.put("OFFICE TYPE",text_office_type);
+
+                    db.collection(text_office_ID).document("OFFICE INFO").set(map)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(CreateOfficeActivity.this, "Office Info Set", Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(CreateOfficeActivity.this, "Failed to Create Office Info", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                    for(Map.Entry <String,String> element : ranks.entrySet()){
+
+                        String text_rank_id = element.getKey();
+                        String text_rank_name = element.getValue();
+
+                        HashMap <String,Object> note = new HashMap<>();
+                        note.put("OFFICE NAME",text_office_name);
+                        note.put("RANK NAME",text_rank_name);
+                        note.put("OFFICE ID",text_office_ID);
+
+                        db.collection(text_office_ID).document(text_rank_id).collection("INFO").document("RANK INFO")
+                                .set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        //Toast.makeText(CreateOfficeActivity.this, "Room for "+element.getValue(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(CreateOfficeActivity.this, "Successfully created room", Toast.LENGTH_SHORT).show();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        //Toast.makeText(CreateOfficeActivity.this, "Failed for "+element.getValue(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(CreateOfficeActivity.this, "Problem for creating room", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                     }createOfficeToJoinOffice();
@@ -114,8 +136,10 @@ public class CreateOfficeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String text_rank_id = createRankId.getEditText().getText().toString();
                 String text_rank_name = autoCompleteText2.getText().toString();
+                String text_office_id = createOfficeId.getEditText().getText().toString();
+
+                //redesign database
                 ranks.put(text_rank_id,text_rank_name);
-                Toast.makeText(CreateOfficeActivity.this, "created "+text_rank_name, Toast.LENGTH_SHORT).show();
             }
         });
 
