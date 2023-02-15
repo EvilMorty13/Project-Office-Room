@@ -1,16 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AboutUsFragment">
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="About Us fragment"
-        android:textSize="30dp"
-        android:textColor="@color/black"/>
+   <RelativeLayout
+       android:id = "@+id/first"
+       android:layout_width="match_parent"
+       android:layout_height="320dp"
+       android:background="@color/backgroundColor">
 
-</FrameLayout>
+
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="20dp"
+           android:layout_marginLeft="5dp"
+           android:text="We are a team of young engineers
+trying to solve problems through software. As part of our project work it was recommended
+to make an android app which can be used as a useful tool in the IT fields. That's how our
+OFFICE ROOM app idea was born. We used java because we are already familiar with it. Android Studio
+was used as IDE. The purpose of this app is to increase connectivity between office workers.
+We know there are many social media app that can be used for office work. But none of those
+are specially made for office work in mind.We tried to fill that void through this app. We have plans
+release this app publicly in the future. Hopefully this app will increase productivity and connectivity
+in the office."
+           android:fontFamily="@font/audiowide"
+           android:textColor="@color/white"
+           android:textSize="14sp"/>
+
+
+   </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="580dp"
+        android:layout_below="@+id/first"
+        android:background="@color/white">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text = "Credits : "
+            android:textColor="@color/backgroundColor"
+            android:fontFamily="@font/audiowide"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+
+        <ImageView
+            android:id="@+id/credit_avik"
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/name_avik"
+             />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:layout_marginTop="180dp"
+            android:src="@drawable/name_rayhan"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>
