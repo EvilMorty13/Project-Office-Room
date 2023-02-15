@@ -43,31 +43,33 @@ public class OfficeRoomActivity extends AppCompatActivity {
         data.putString("text_office_id",text_office_id);
         data.putString("text_rank_id",text_rank_id);
 
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                switch (item.getItemId()){
-                    case R.id.home_bar:
-                        fragmentTransaction.replace(R.id.fragment_container_id,new HomeFragment()).commit();
-                        return true;
-                    case R.id.post_bar:
-                        AddPostFragment addPostFragment = new AddPostFragment();
-                        addPostFragment.setArguments(data);
-                        fragmentTransaction.replace(R.id.fragment_container_id,addPostFragment).commit();
-                        return true;
-                    case R.id.profile_bar:
-                        fragmentTransaction.replace(R.id.fragment_container_id,new ProfileFragment()).commit();
-                        return true;
-                    case R.id.sign_out_bar:
-                        fragmentTransaction.replace(R.id.fragment_container_id,new SignOutFragment()).commit();
-                        return true;
-                    case R.id.about_us_icon:
-                        fragmentTransaction.replace(R.id.fragment_container_id,new AboutUsFragment()).commit();
-                        return true;
-
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                if(item.getItemId()==R.id.home_bar){
+                    HomeFragment homeFragment = new HomeFragment();
+                    fragmentTransaction.replace(R.id.fragment_container_id,homeFragment).commit();
+                    return true;
+                }else if(item.getItemId()==R.id.post_bar){
+                    AddPostFragment addPostFragment = new AddPostFragment();
+                    addPostFragment.setArguments(data);
+                    fragmentTransaction.replace(R.id.fragment_container_id,addPostFragment).commit();
+                    return true;
+                }else if(item.getItemId()==R.id.profile_bar){
+                    ProfileFragment profileFragment = new ProfileFragment();
+                    fragmentTransaction.replace(R.id.fragment_container_id,profileFragment).commit();
+                    return true;
+                }else if(item.getItemId()==R.id.sign_out_bar){
+                    SignOutFragment signOutFragment = new SignOutFragment();
+                    fragmentTransaction.replace(R.id.fragment_container_id,signOutFragment).commit();
+                    return true;
+                }else if(item.getItemId()==R.id.about_us_bar){
+                    AboutUsFragment aboutUsFragment = new AboutUsFragment();
+                    fragmentTransaction.replace(R.id.fragment_container_id,aboutUsFragment).commit();
+                    return true;
                 }
 
                 return false;

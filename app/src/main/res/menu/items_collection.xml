@@ -17,7 +17,7 @@
         android:icon="@drawable/profile_icon"/>
 
     <item
-        android:id="@+id/about_us_icon"
+        android:id="@+id/about_us_bar"
         android:title="About Us"
         android:icon="@drawable/about_us_icon"/>
 
