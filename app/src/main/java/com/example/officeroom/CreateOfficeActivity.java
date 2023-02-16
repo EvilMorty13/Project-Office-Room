@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.app.ActivityOptions;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.icu.text.Transliterator;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,8 +31,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class CreateOfficeActivity extends AppCompatActivity {
 
@@ -50,8 +56,13 @@ public class CreateOfficeActivity extends AppCompatActivity {
     String[] software_farm_rank = {"CEO","CTO","Lead Engineer","Senior Software Engineer","Junior Software Engineer","Software Engineer Intern"};
     String[] Factory_rank = {"Manager","Assistant Manager","Staff","Labour"};
     AutoCompleteTextView autoCompleteText,autoCompleteText2;
-    ArrayAdapter <String> arrayAdapter;
-    ArrayAdapter <String> arrayAdapter2;
+    ArrayAdapter <String> arrayAdapter,arrayAdapter2,arrayAdapter3;
+
+    MultiAutoCompleteTextView multiAutoCompleteTextView;
+    ArrayList<Integer> selectedItems;
+    String[] selected_array;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,17 +162,35 @@ public class CreateOfficeActivity extends AppCompatActivity {
                 String unique_office_id_v2 = new UniqueIdGenerator().generateID();
                 createOfficeId.getEditText().setText(unique_office_id_v2);
                 Toast.makeText(CreateOfficeActivity.this, "selected "+item, Toast.LENGTH_SHORT).show();
+
                 autoCompleteText2.setText(null);
+                multiAutoCompleteTextView.setText(null);
+
+
                 if(item.equals("Institute")){
+                    selected_array = new String[institute_ranks.length];
                     arrayAdapter2 = new ArrayAdapter<>(CreateOfficeActivity.this,R.layout.list_item,institute_ranks);
+                    selected_array = institute_ranks;
                 }
                 else if(item.equals("Software Farm")){
+                    selected_array = new String[software_farm_rank.length];
                     arrayAdapter2 = new ArrayAdapter<>(CreateOfficeActivity.this,R.layout.list_item,software_farm_rank);
+                    selected_array = software_farm_rank;
                 }
                 else if(item.equals("Factory")){
+                    selected_array = new String[Factory_rank.length];
                     arrayAdapter2 = new ArrayAdapter<>(CreateOfficeActivity.this,R.layout.list_item,Factory_rank);
+                    selected_array = Factory_rank;
                 }
                 autoCompleteText2.setAdapter(arrayAdapter2);
+
+                arrayAdapter3 = new ArrayAdapter<>(CreateOfficeActivity.this,R.layout.list_item,selected_array);
+                multiAutoCompleteTextView.setAdapter(arrayAdapter3);
+
+                multiAutoCompleteTextView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+
+                selectedItems = new ArrayList<>();
+
             }
         });
 
@@ -172,6 +201,29 @@ public class CreateOfficeActivity extends AppCompatActivity {
                 Toast.makeText(CreateOfficeActivity.this, "Selected "+item, Toast.LENGTH_SHORT).show();
             }
         });
+
+        multiAutoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String item = adapterView.getItemAtPosition(i).toString();
+                Toast.makeText(CreateOfficeActivity.this, "Communicate with "+item, Toast.LENGTH_SHORT).show();
+
+                if(!selectedItems.contains(i)){
+                    selectedItems.add(i);
+                    Collections.sort(selectedItems);
+                }
+
+                StringBuilder stringBuilder = new StringBuilder();
+                for(int j=0;j<selectedItems.size();j++){
+                    stringBuilder.append(selected_array[selectedItems.get(j)]);
+                    if(j!=selectedItems.size()-1) stringBuilder.append(", ");
+                }
+
+                multiAutoCompleteTextView.setText(stringBuilder.toString());
+                multiAutoCompleteTextView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+            }
+        });
+
     }
 
     private void createOfficeToJoinOffice() {
@@ -248,5 +300,8 @@ public class CreateOfficeActivity extends AppCompatActivity {
 
         createOfficeButton = findViewById(R.id.createOfficeRegButtonId);
         createJoinOfficeButton = findViewById(R.id.createOfficeSignInButtonId);
+
+        multiAutoCompleteTextView = findViewById(R.id.set_communication_text_id);
+
     }
 }

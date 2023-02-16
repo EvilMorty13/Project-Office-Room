@@ -149,6 +149,29 @@
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/createCommunicationId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxStrokeColor="#6DCD71"
+            app:hintTextColor="#6DCD71"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            >
+
+            <MultiAutoCompleteTextView
+                android:id="@+id/set_communication_text_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Can communicate with"
+                android:inputType="none"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
         <Button
             android:id="@+id/createRankButtonId"
             android:layout_width="match_parent"
