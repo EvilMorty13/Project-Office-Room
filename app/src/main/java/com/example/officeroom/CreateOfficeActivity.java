@@ -60,6 +60,7 @@ public class CreateOfficeActivity extends AppCompatActivity {
 
     MultiAutoCompleteTextView multiAutoCompleteTextView;
     ArrayList<Integer> selectedItems;
+    ArrayList<String> communicate_with_items;
     String[] selected_array;
 
 
@@ -73,6 +74,8 @@ public class CreateOfficeActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         findAllId();
         HashMap <String,String> ranks = new HashMap<>();
+        HashMap <String,ArrayList<String>> ranks_communicate_with = new HashMap<>();
+
 
         String unique_office_id = new UniqueIdGenerator().generateID();
         createOfficeId.getEditText().setText(unique_office_id);
@@ -124,18 +127,16 @@ public class CreateOfficeActivity extends AppCompatActivity {
                         note.put("RANK NAME",text_rank_name);
                         note.put("OFFICE ID",text_office_ID);
 
+                        ArrayList<String> temp_ArrayList = ranks_communicate_with.get(text_rank_id);
+
+                        HashMap<String,ArrayList<String>> store_communication = new HashMap<>();
+                        store_communication.put("Communications",temp_ArrayList);
+
                         db.collection(text_office_ID).document(text_rank_id).collection("INFO").document("RANK INFO")
-                                .set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Toast.makeText(CreateOfficeActivity.this, "Successfully created room", Toast.LENGTH_SHORT).show();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(CreateOfficeActivity.this, "Problem for creating room", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                                .set(note);
+
+                        db.collection(text_office_ID).document(text_rank_id).collection("INFO").document("COMMUNICATION")
+                                .set(store_communication);
                     }createOfficeToJoinOffice();
                 }
             }
@@ -149,8 +150,10 @@ public class CreateOfficeActivity extends AppCompatActivity {
                 String text_rank_name = autoCompleteText2.getText().toString();
                 String text_office_id = createOfficeId.getEditText().getText().toString();
 
+
                 //redesign database
                 ranks.put(text_rank_id,text_rank_name);
+                ranks_communicate_with.put(text_rank_id,communicate_with_items);
             }
         });
 
@@ -190,6 +193,7 @@ public class CreateOfficeActivity extends AppCompatActivity {
                 multiAutoCompleteTextView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 
                 selectedItems = new ArrayList<>();
+                communicate_with_items = new ArrayList<>();
 
             }
         });
@@ -197,6 +201,9 @@ public class CreateOfficeActivity extends AppCompatActivity {
         autoCompleteText2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedItems = new ArrayList<>();
+                communicate_with_items = new ArrayList<>();
+                multiAutoCompleteTextView.setText(null);
                 String item = adapterView.getItemAtPosition(i).toString();
                 Toast.makeText(CreateOfficeActivity.this, "Selected "+item, Toast.LENGTH_SHORT).show();
             }
@@ -215,7 +222,9 @@ public class CreateOfficeActivity extends AppCompatActivity {
 
                 StringBuilder stringBuilder = new StringBuilder();
                 for(int j=0;j<selectedItems.size();j++){
-                    stringBuilder.append(selected_array[selectedItems.get(j)]);
+                    String temp_string = selected_array[selectedItems.get(j)];
+                    stringBuilder.append(temp_string);
+                    if(!communicate_with_items.contains(temp_string)) communicate_with_items.add(temp_string);
                     if(j!=selectedItems.size()-1) stringBuilder.append(", ");
                 }
 
