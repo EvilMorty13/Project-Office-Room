@@ -12,8 +12,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,21 +26,31 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class AddPostFragment extends Fragment {
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseFirestore db;
+
     String office_id,rank_id,office_name,rank_name;
 
     TextView setFragOfficeName,setFragRankName;
 
-    EditText inputTitle,inputRankId,inputAnnouncement;
+    MultiAutoCompleteTextView multiAutoCompleteTextView;
+    ArrayList<String> communication_partner = new ArrayList<>();
+    ArrayAdapter<String> arrayAdapter;
 
-    Button announce_button;
+    ArrayList<Integer> selected_item_list = new ArrayList<>();
+
+    Button fragment_announcement_button;
+
+    String[] selected_array;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,36 +70,66 @@ public class AddPostFragment extends Fragment {
         setFragOfficeName.setText(office_name);
         setFragRankName.setText(rank_name);
 
-        announce_button.setOnClickListener(new View.OnClickListener() {
+        db.collection(office_id).document(rank_id).collection("INFO").document("COMMUNICATION").get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if(documentSnapshot.exists()){
+                            communication_partner = (ArrayList<String>) documentSnapshot.get("Communications");
+                            selected_array = new String[communication_partner.size()];
+                            for(int j=0;j<communication_partner.size();j++){
+                                selected_array[j] = communication_partner.get(j);
+                                //Toast.makeText(getActivity(), "Ranks "+selected_array[j], Toast.LENGTH_SHORT).show();
+                            }
+                            arrayAdapter = new ArrayAdapter<>(getActivity(),R.layout.list_item,selected_array);
+                            multiAutoCompleteTextView.setAdapter(arrayAdapter);
+                            multiAutoCompleteTextView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+                            //Toast.makeText(getActivity(), "got it "+communication_partner.size(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getActivity(), "Server problem", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+        multiAutoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                String text_input_title = inputTitle.getText().toString();
-                String text_input_rank_id = inputRankId.getText().toString();
-                String text_input_announcement = inputAnnouncement.getText().toString();
+                if(!selected_item_list.contains(i)){
+                    selected_item_list.add(i);
+                    Collections.sort(selected_item_list);
+                }
 
-                String final_announcement = "\n"+text_input_title+"\n\n"+text_input_announcement+"\n";
-
-                Timestamp timestamp = Timestamp.now();
-                HashMap<String,Object> announcements = new HashMap<>();
-                announcements.put(timestamp.toString(),final_announcement);
-                db.collection(office_id).document(text_input_rank_id).collection("ANNOUNCEMENTS").document(timestamp.toString())
-                        .set(announcements);
+                StringBuilder stringBuilder = new StringBuilder();
+                for(int j=0;j<selected_item_list.size();j++){
+                    String temp_string = selected_array[selected_item_list.get(j)];
+                    stringBuilder.append(temp_string);
+                    if(j!=selected_item_list.size()-1) stringBuilder.append(", ");
+                }
+                multiAutoCompleteTextView.setText(stringBuilder.toString());
+                multiAutoCompleteTextView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
             }
         });
+
 
         return view;
     }
 
     private void findAllId(View view) {
+
+        db = FirebaseFirestore.getInstance();
+
         setFragOfficeName = view.findViewById(R.id.set_office_name_id);
         setFragRankName = view.findViewById(R.id.set_rank_name_id);
 
-        announce_button = view.findViewById(R.id.announce_button_id);
+        fragment_announcement_button = view.findViewById(R.id.fragment_announcement_button_id);
 
-        inputTitle = view.findViewById(R.id.add_post_title_id);
-        inputRankId = view.findViewById(R.id.add_post_rank_id);
-        inputAnnouncement = view.findViewById(R.id.add_post_announce_here_id);
+
+        multiAutoCompleteTextView = view.findViewById(R.id.fragment_select_announce_to_id);
     }
 
 
