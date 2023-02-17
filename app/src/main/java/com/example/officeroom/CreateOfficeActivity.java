@@ -122,6 +122,9 @@ public class CreateOfficeActivity extends AppCompatActivity {
                         String text_rank_id = element.getKey();
                         String text_rank_name = element.getValue();
 
+                        HashMap<String,String> rank_id_collection = new HashMap<>();
+                        rank_id_collection.put(text_rank_name,text_rank_id);
+
                         HashMap <String,Object> note = new HashMap<>();
                         note.put("OFFICE NAME",text_office_name);
                         note.put("RANK NAME",text_rank_name);
@@ -131,6 +134,8 @@ public class CreateOfficeActivity extends AppCompatActivity {
 
                         HashMap<String,ArrayList<String>> store_communication = new HashMap<>();
                         store_communication.put("Communications",temp_ArrayList);
+
+                        db.collection(text_office_ID).document("RANK ID INFO").collection(text_rank_name).document(text_rank_name).set(rank_id_collection);
 
                         db.collection(text_office_ID).document(text_rank_id).collection("INFO").document("RANK INFO")
                                 .set(note);

@@ -79,12 +79,10 @@ public class AddPostFragment extends Fragment {
                             selected_array = new String[communication_partner.size()];
                             for(int j=0;j<communication_partner.size();j++){
                                 selected_array[j] = communication_partner.get(j);
-                                //Toast.makeText(getActivity(), "Ranks "+selected_array[j], Toast.LENGTH_SHORT).show();
                             }
                             arrayAdapter = new ArrayAdapter<>(getActivity(),R.layout.list_item,selected_array);
                             multiAutoCompleteTextView.setAdapter(arrayAdapter);
                             multiAutoCompleteTextView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-                            //Toast.makeText(getActivity(), "got it "+communication_partner.size(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
