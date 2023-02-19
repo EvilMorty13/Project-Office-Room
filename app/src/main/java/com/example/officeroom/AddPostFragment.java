@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -40,15 +41,19 @@ public class AddPostFragment extends Fragment {
 
     String office_id,rank_id,office_name,rank_name;
 
+    TextInputLayout addTitle,addAnnouncement;
+    Button fragment_announcement_button;
     TextView setFragOfficeName,setFragRankName;
 
     MultiAutoCompleteTextView multiAutoCompleteTextView;
     ArrayList<String> communication_partner = new ArrayList<>();
     ArrayAdapter<String> arrayAdapter;
 
+    ArrayList<String> announcements_to_list = new ArrayList<>();
+
     ArrayList<Integer> selected_item_list = new ArrayList<>();
 
-    Button fragment_announcement_button;
+
 
     String[] selected_array;
 
@@ -105,11 +110,62 @@ public class AddPostFragment extends Fragment {
                 StringBuilder stringBuilder = new StringBuilder();
                 for(int j=0;j<selected_item_list.size();j++){
                     String temp_string = selected_array[selected_item_list.get(j)];
+                    db.collection(office_id).document("RANK ID INFO").collection(temp_string).document(temp_string).get()
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                            if(documentSnapshot.exists()){
+                                                String temp_val = documentSnapshot.getString(temp_string);
+                                                if(!announcements_to_list.contains(temp_val)){
+                                                    announcements_to_list.add(temp_val);
+                                                }
+                                            }else{
+                                                Toast.makeText(getActivity(), "Rank doesn't exist", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                     stringBuilder.append(temp_string);
                     if(j!=selected_item_list.size()-1) stringBuilder.append(", ");
                 }
                 multiAutoCompleteTextView.setText(stringBuilder.toString());
                 multiAutoCompleteTextView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+            }
+        });
+
+        fragment_announcement_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text_title = addTitle.getEditText().getText().toString();
+                String text_announcement = addAnnouncement.getEditText().getText().toString();
+
+                Timestamp timestamp = Timestamp.now();
+
+                HashMap <String,Object> announcements = new HashMap<>();
+                announcements.put("Title",text_title);
+                announcements.put("Announcements",text_announcement);
+
+
+
+                for(String str : announcements_to_list){
+                    db.collection(office_id).document(str).collection("ANNOUNCEMENTS").document(timestamp.toString()).set(announcements)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getActivity(), "Successfully Updated", Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
+
             }
         });
 
@@ -123,6 +179,9 @@ public class AddPostFragment extends Fragment {
 
         setFragOfficeName = view.findViewById(R.id.set_office_name_id);
         setFragRankName = view.findViewById(R.id.set_rank_name_id);
+
+        addTitle = view.findViewById(R.id.fragment_add_post_title_id);
+        addAnnouncement = view.findViewById(R.id.fragment_add_post_announcement_id);
 
         fragment_announcement_button = view.findViewById(R.id.fragment_announcement_button_id);
 
