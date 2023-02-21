@@ -46,12 +46,12 @@
                     android:id="@+id/set_office_name_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/bungee"
+                    android:includeFontPadding="false"
                     android:text="OFFICE NAME"
                     android:textColor="#6DCD71"
-                    android:textSize="15sp"
-                    android:includeFontPadding="false"
-                    android:layout_centerInParent="true"
-                    android:fontFamily="@font/bungee"/>
+                    android:textSize="15sp" />
 
             </RelativeLayout>
 
@@ -83,12 +83,12 @@
                     android:id="@+id/set_rank_name_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/bungee"
+                    android:includeFontPadding="false"
                     android:text="RANK"
                     android:textColor="#6DCD71"
-                    android:textSize="15sp"
-                    android:includeFontPadding="false"
-                    android:layout_centerInParent="true"
-                    android:fontFamily="@font/bungee"/>
+                    android:textSize="15sp" />
 
             </RelativeLayout>
 
