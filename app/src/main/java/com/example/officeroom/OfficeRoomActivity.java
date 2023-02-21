@@ -16,6 +16,8 @@ public class OfficeRoomActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
 
+    boolean[] selected_fragment = {true,false,false,false,false};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,24 +51,34 @@ public class OfficeRoomActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                if(item.getItemId()==R.id.home_bar){
+                if(item.getItemId()==R.id.home_bar && selected_fragment[0]==false){
+                    make_false_all();
+                    selected_fragment[0]=true;
                     HomeFragment homeFragment = new HomeFragment();
                     fragmentTransaction.replace(R.id.fragment_container_id,homeFragment).commit();
                     return true;
-                }else if(item.getItemId()==R.id.post_bar){
+                }else if(item.getItemId()==R.id.post_bar && selected_fragment[1]==false){
+                    make_false_all();
+                    selected_fragment[1]=true;
                     AddPostFragment addPostFragment = new AddPostFragment();
                     addPostFragment.setArguments(data);
                     fragmentTransaction.replace(R.id.fragment_container_id,addPostFragment).commit();
                     return true;
-                }else if(item.getItemId()==R.id.profile_bar){
+                }else if(item.getItemId()==R.id.profile_bar && selected_fragment[2]==false){
+                    make_false_all();
+                    selected_fragment[2]=true;
                     ProfileFragment profileFragment = new ProfileFragment();
                     fragmentTransaction.replace(R.id.fragment_container_id,profileFragment).commit();
                     return true;
-                }else if(item.getItemId()==R.id.sign_out_bar){
+                }else if(item.getItemId()==R.id.sign_out_bar && selected_fragment[3]==false){
+                    make_false_all();
+                    selected_fragment[3]=true;
                     SignOutFragment signOutFragment = new SignOutFragment();
                     fragmentTransaction.replace(R.id.fragment_container_id,signOutFragment).commit();
                     return true;
-                }else if(item.getItemId()==R.id.about_us_bar){
+                }else if(item.getItemId()==R.id.about_us_bar && selected_fragment[4]==false){
+                    make_false_all();
+                    selected_fragment[4]=true;
                     AboutUsFragment aboutUsFragment = new AboutUsFragment();
                     fragmentTransaction.replace(R.id.fragment_container_id,aboutUsFragment).commit();
                     return true;
@@ -75,6 +87,10 @@ public class OfficeRoomActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private void make_false_all() {
+        for(int i=0;i<5;i++) selected_fragment[i]=false;
     }
 
     private void findAllId() {

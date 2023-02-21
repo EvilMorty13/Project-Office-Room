@@ -46,7 +46,7 @@ public class AddPostFragment extends Fragment {
     TextView setFragOfficeName,setFragRankName;
 
     MultiAutoCompleteTextView multiAutoCompleteTextView;
-    ArrayList<String> communication_partner = new ArrayList<>();
+    ArrayList<String> communication_partner;
     ArrayAdapter<String> arrayAdapter;
 
     ArrayList<String> announcements_to_list = new ArrayList<>();
@@ -75,6 +75,7 @@ public class AddPostFragment extends Fragment {
         setFragOfficeName.setText(office_name);
         setFragRankName.setText(rank_name);
 
+        communication_partner = new ArrayList<>();
         db.collection(office_id).document(rank_id).collection("INFO").document("COMMUNICATION").get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
