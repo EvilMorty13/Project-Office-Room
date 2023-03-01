@@ -1,21 +1,35 @@
 package com.example.officeroom;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+
 public class HomeFragment extends Fragment {
-    TextView title;
-    TextView announcement;
-    TextView from;
+
+    String office_id,rank_id,office_name,rank_name;
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -24,35 +38,33 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         findAllId(view);
 
-
-
-        String ti = "This is a title . sdfnn sodfjo osdfoisdf oisdjfosfj sodijfsodf  sodifjo" +
-                "sdfnkjsdf skjdnfjsdf  sdfnsjdf ksdfsdkf oidsfjsdf";
-        title.setMovementMethod(new ScrollingMovementMethod());
-        title.setText("Title : " +ti);
-
-        String am = "This is an announcement. Very urgent meeting." +
-                "Come quickly in office at 10 am. sldfk lsdfk lsdf lksdf ksdfm skdf sdnf sdikfk" +
-                "sdfkknsdf lsdkfjskf ieojrof  dkfsdfn eorie  sdfn oweirj sdfn slkdfskldf lskdfnsdklf" +
-                "sdlfksdfkl lsdkfjsdklf sdfl fsdkfnskldfsd lfldkfjsdfljwoifsd fsdlkfweoif " +
-                "sdfksdlkfnsdlkfnsdf ljfsdklfsd lkfsdiofjweiofkfsdklf sf" +
-                "dfnsdfsdfweuiofwefmndlkfsdlkfmsdf " +
-                "fsdkfslkdfslfjweoirjweopirjwefjdfl;sdjfksdjflskdfjsdkfjweiof";
-        announcement.setMovementMethod(new ScrollingMovementMethod());
-        announcement.setText("Announcement : "+am);
-
-        String fr = "Mokles";
-        from.setMovementMethod(new ScrollingMovementMethod());
-        from.setText("From : "+fr);
-
+        Bundle data = getArguments();
+        if(data!=null){
+            office_name = data.getString("office_name_string");
+            rank_name = data.getString("rank_name_string");
+            office_id = data.getString("text_office_id");
+            rank_id = data.getString("text_rank_id");
+        }
+        
+        receievedAnnouncements();
 
         return view;
     }
 
+    private void receievedAnnouncements() {
+        db.collection(office_id).document(rank_id).collection("ANNOUNCEMENTS").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                for(DocumentChange dc : value.getDocumentChanges()){
+                    String title;
+                    title = dc.getDocument().getString("Title");
+                    Log.d(TAG, "onEvent: "+title);
+                }
+            }
+        });
+    }
+
     private void findAllId(View view) {
-        title = view.findViewById(R.id.home_title);
-        announcement = view.findViewById(R.id.home_announcement);
-        from = view.findViewById(R.id.home_from);
 
     }
 

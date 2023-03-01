@@ -27,12 +27,6 @@ public class OfficeRoomActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 
         findAllId();
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_id,new HomeFragment()).commit();
-        bottomView();
-
-    }
-
-    private void bottomView() {
 
         Bundle data = new Bundle();
         String office_name_string = getIntent().getStringExtra("office_name_string");
@@ -45,7 +39,27 @@ public class OfficeRoomActivity extends AppCompatActivity {
         data.putString("text_office_id",text_office_id);
         data.putString("text_rank_id",text_rank_id);
 
+        HomeFragment homeFragment = new HomeFragment();
+        homeFragment.setArguments(data);
 
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_id,homeFragment).commit();
+        bottomView(data);
+
+    }
+
+    private void bottomView(Bundle data) {
+
+        HomeFragment homeFragment = new HomeFragment();
+        homeFragment.setArguments(data);
+
+        AddPostFragment addPostFragment = new AddPostFragment();
+        addPostFragment.setArguments(data);
+
+        ProfileFragment profileFragment = new ProfileFragment();
+
+        SignOutFragment signOutFragment = new SignOutFragment();
+
+        AboutUsFragment aboutUsFragment = new AboutUsFragment();
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -54,32 +68,28 @@ public class OfficeRoomActivity extends AppCompatActivity {
                 if(item.getItemId()==R.id.home_bar && selected_fragment[0]==false){
                     make_false_all();
                     selected_fragment[0]=true;
-                    HomeFragment homeFragment = new HomeFragment();
                     fragmentTransaction.replace(R.id.fragment_container_id,homeFragment).commit();
                     return true;
                 }else if(item.getItemId()==R.id.post_bar && selected_fragment[1]==false){
                     make_false_all();
                     selected_fragment[1]=true;
-                    AddPostFragment addPostFragment = new AddPostFragment();
-                    addPostFragment.setArguments(data);
                     fragmentTransaction.replace(R.id.fragment_container_id,addPostFragment).commit();
                     return true;
                 }else if(item.getItemId()==R.id.profile_bar && selected_fragment[2]==false){
                     make_false_all();
                     selected_fragment[2]=true;
-                    ProfileFragment profileFragment = new ProfileFragment();
                     fragmentTransaction.replace(R.id.fragment_container_id,profileFragment).commit();
                     return true;
                 }else if(item.getItemId()==R.id.sign_out_bar && selected_fragment[3]==false){
                     make_false_all();
                     selected_fragment[3]=true;
-                    SignOutFragment signOutFragment = new SignOutFragment();
+
                     fragmentTransaction.replace(R.id.fragment_container_id,signOutFragment).commit();
                     return true;
                 }else if(item.getItemId()==R.id.about_us_bar && selected_fragment[4]==false){
                     make_false_all();
                     selected_fragment[4]=true;
-                    AboutUsFragment aboutUsFragment = new AboutUsFragment();
+
                     fragmentTransaction.replace(R.id.fragment_container_id,aboutUsFragment).commit();
                     return true;
                 }
