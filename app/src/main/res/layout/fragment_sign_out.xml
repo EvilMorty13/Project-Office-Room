@@ -5,6 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".SignOutFragment">
 
+
+
+
+
+
+
     <Button
         android:id="@+id/signOut"
         android:layout_width="400dp"
@@ -17,5 +23,6 @@
         android:textSize="15sp"
         android:textAllCaps="false"
         />
+
 
 </RelativeLayout>

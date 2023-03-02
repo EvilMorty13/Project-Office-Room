@@ -46,35 +46,35 @@ public class ProfileFragment extends Fragment {
         findAllId(view);
 
         String nm = "Mokles Mia";
-        name.setMovementMethod(new ScrollingMovementMethod());
+        //name.setMovementMethod(new ScrollingMovementMethod());
         name.setText("Name : "+nm);
 
 
         String em = auth.getCurrentUser().getEmail();
-        email.setMovementMethod(new ScrollingMovementMethod());
+        //email.setMovementMethod(new ScrollingMovementMethod());
         email.setText("Email : "+em);
 
         long ts_creation_time = auth.getCurrentUser().getMetadata().getCreationTimestamp();
         Date creation_date = (new Date(ts_creation_time));
         SimpleDateFormat creation_sfd = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss",Locale.getDefault());
         String creation_time = creation_sfd.format(creation_date);
-        created.setMovementMethod(new ScrollingMovementMethod());
+        //created.setMovementMethod(new ScrollingMovementMethod());
         created.setText("Account Created : "+creation_time);
 
 
         String rn = "CEO";
-        rank_name.setMovementMethod(new ScrollingMovementMethod());
+        //rank_name.setMovementMethod(new ScrollingMovementMethod());
         rank_name.setText("Rank : "+rn);
 
         String in = "Vivasoft";
-        institute_name.setMovementMethod(new ScrollingMovementMethod());
+        //institute_name.setMovementMethod(new ScrollingMovementMethod());
         institute_name.setText("Institute : "+in);
 
         long ts_latest_login = auth.getCurrentUser().getMetadata().getLastSignInTimestamp();
         Date latest_login_date = (new Date(ts_latest_login));
         SimpleDateFormat latest_login_sfd = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss",Locale.getDefault());
         String latest_login = latest_login_sfd.format(latest_login_date);
-        last_login.setMovementMethod(new ScrollingMovementMethod());
+        //last_login.setMovementMethod(new ScrollingMovementMethod());
         last_login.setText("Last Login : "+latest_login);
 
 

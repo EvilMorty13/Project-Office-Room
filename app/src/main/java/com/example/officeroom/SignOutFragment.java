@@ -6,16 +6,23 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Calendar;
+
+
 public class SignOutFragment extends Fragment {
     Button sign_out;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -23,6 +30,8 @@ public class SignOutFragment extends Fragment {
         setStatusBarColor(getResources().getColor(R.color.white));
         View view = inflater.inflate(R.layout.fragment_sign_out, container, false);
         findAllId(view);
+
+
 
         sign_out.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,7 +45,9 @@ public class SignOutFragment extends Fragment {
     }
 
     private void findAllId(View view) {
+
         sign_out = view.findViewById(R.id.signOut);
+
     }
 
     private void setStatusBarColor(int color) {
