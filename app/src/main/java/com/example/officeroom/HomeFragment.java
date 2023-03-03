@@ -25,11 +25,18 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeFragment extends Fragment {
 
     String office_id,rank_id,office_name,rank_name;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    RecyclerView recyclerView;
+    DataAdapter dataAdapter;
+    List <AnnouncementsModelClass> announcementList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,6 +44,14 @@ public class HomeFragment extends Fragment {
         setStatusBarColor(getResources().getColor(R.color.white));
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         findAllId(view);
+
+        announcementList = new ArrayList<>();
+
+        dataAdapter = new DataAdapter(announcementList);
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(dataAdapter);
 
         Bundle data = getArguments();
         if(data!=null){
@@ -56,16 +71,21 @@ public class HomeFragment extends Fragment {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 for(DocumentChange dc : value.getDocumentChanges()){
-                    String title;
-                    title = dc.getDocument().getString("Title");
-                    Log.d(TAG, "onEvent: "+title);
+//                    String title;
+//                    title = dc.getDocument().getString("Title");
+//                    Log.d(TAG, "onEvent: "+title);
+
+                    AnnouncementsModelClass announcementsModelClass = dc.getDocument().toObject(AnnouncementsModelClass.class);
+                    announcementList.add(announcementsModelClass);
+
+                    dataAdapter.notifyDataSetChanged();
                 }
             }
         });
     }
 
     private void findAllId(View view) {
-
+        recyclerView = view.findViewById(R.id.recyclerViewID);
     }
 
     private void setStatusBarColor(int color) {
