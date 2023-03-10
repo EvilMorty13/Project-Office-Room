@@ -240,6 +240,10 @@ public class CreateOfficeActivity extends AppCompatActivity {
 
     }
 
+    public void onBackPressed(){
+        createOfficeToJoinOffice();
+    }
+
     private void createOfficeToJoinOffice() {
         new Handler().postDelayed(new Runnable() {
             @Override

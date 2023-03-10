@@ -1,14 +1,18 @@
 package com.example.officeroom;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
@@ -48,32 +52,41 @@ public class JoinOfficeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String text_office_id = joinOfficeInputId.getEditText().getText().toString();
                 String text_rank_id = joinRankInputId.getEditText().getText().toString();
-                db.collection(text_office_id).document(text_rank_id).collection("INFO").document("RANK INFO").get()
-                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                if(documentSnapshot.exists()){
-                                    Intent intent = new Intent(JoinOfficeActivity.this,OfficeRoomActivity.class);
 
-                                    String office_name_string = documentSnapshot.getString("OFFICE NAME");
-                                    String rank_name_string = documentSnapshot.getString("RANK NAME");
+                boolean join_office_checked = join_office_checkConditions(text_office_id,text_rank_id);
 
-                                    intent.putExtra("office_name_string",office_name_string);
-                                    intent.putExtra("rank_name_string",rank_name_string);
-                                    intent.putExtra("text_office_id",text_office_id);
-                                    intent.putExtra("text_rank_id",text_rank_id);
+                if(join_office_checked) {
 
-                                    startActivity(intent);
-                                    Toast.makeText(JoinOfficeActivity.this, "Join Office Successful", Toast.LENGTH_SHORT).show();
-                                }else
-                                    Toast.makeText(JoinOfficeActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(JoinOfficeActivity.this, "Server problem", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+
+                    db.collection(text_office_id).document(text_rank_id).collection("INFO").document("RANK INFO").get()
+                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    if(documentSnapshot.exists()){
+                                        Intent intent = new Intent(JoinOfficeActivity.this,OfficeRoomActivity.class);
+
+                                        String office_name_string = documentSnapshot.getString("OFFICE NAME");
+                                        String rank_name_string = documentSnapshot.getString("RANK NAME");
+
+                                        intent.putExtra("office_name_string",office_name_string);
+                                        intent.putExtra("rank_name_string",rank_name_string);
+                                        intent.putExtra("text_office_id",text_office_id);
+                                        intent.putExtra("text_rank_id",text_rank_id);
+
+                                        startActivity(intent);
+                                        Toast.makeText(JoinOfficeActivity.this, "Join Office Successful", Toast.LENGTH_SHORT).show();
+                                    }else
+                                        Toast.makeText(JoinOfficeActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(JoinOfficeActivity.this, "Server problem", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                }
+
             }
         });
 
@@ -98,6 +111,44 @@ public class JoinOfficeActivity extends AppCompatActivity {
                 },SPLASH_DURATION);
             }
         });
+    }
+
+    private boolean join_office_checkConditions(String text_office_id, String text_rank_id) {
+        if(TextUtils.isEmpty(text_office_id) && TextUtils.isEmpty(text_rank_id)) {
+            Toast.makeText(this, "Enter Office ID and Rank ID", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(TextUtils.isEmpty(text_office_id)) {
+            Toast.makeText(this, "Enter Office ID", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(TextUtils.isEmpty(text_rank_id)) {
+            Toast.makeText(this, "Enter Rank ID", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    public void onBackPressed(){
+        AlertDialog.Builder join_office_alert = new AlertDialog.Builder(JoinOfficeActivity.this);
+        View join_office_View = getLayoutInflater().inflate(R.layout.dialog_layout, null);
+        join_office_alert.setView(join_office_View);
+
+        AlertDialog join_office_alertDialog = join_office_alert.create();
+
+        join_office_View.findViewById(R.id.no_button).setOnClickListener(v -> {
+            join_office_alertDialog.dismiss();
+        });
+
+        join_office_View.findViewById(R.id.yes_button).setOnClickListener(v -> {
+            Toast.makeText(this, "Exited from app successfully", Toast.LENGTH_SHORT).show();
+            join_office_alertDialog.dismiss();
+            finishAffinity();
+        });
+
+        join_office_alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        join_office_alertDialog.show();
+
     }
 
     private void findAllId() {

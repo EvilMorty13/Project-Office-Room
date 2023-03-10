@@ -1,6 +1,7 @@
 package com.example.officeroom;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -69,6 +70,10 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void onBackPressed(){
+        RegistrationToLoginAnimation();
     }
 
     private void RegistrationToLoginAnimation() {

@@ -1,11 +1,13 @@
 package com.example.officeroom;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -24,6 +26,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import android.graphics.drawable.ColorDrawable;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -126,6 +130,28 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    public void onBackPressed(){
+        AlertDialog.Builder login_alert = new AlertDialog.Builder(LoginActivity.this);
+        View login_View = getLayoutInflater().inflate(R.layout.dialog_layout, null);
+        login_alert.setView(login_View);
+
+        AlertDialog login_alertDialog = login_alert.create();
+
+        login_View.findViewById(R.id.no_button).setOnClickListener(v -> {
+            login_alertDialog.dismiss();
+        });
+
+        login_View.findViewById(R.id.yes_button).setOnClickListener(v -> {
+            Toast.makeText(this, "Exited from app successfully", Toast.LENGTH_SHORT).show();
+            login_alertDialog.dismiss();
+            finishAffinity();
+        });
+
+        login_alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        login_alertDialog.show();
+
     }
 
     private void findAllId() {

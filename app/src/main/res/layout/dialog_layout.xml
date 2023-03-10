@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/rounded_dialog"
+    android:padding="20dp"
+    app:circularflow_radiusInDP="20dp">
+
+    <ImageView
+        android:id="@+id/log_out_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/baseline_logout_24" />
+
+    <TextView
+        android:id="@+id/log_out_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/log_out_icon"
+        android:layout_centerHorizontal="true"
+        android:text="Do you really want to exit?"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <RelativeLayout
+
+        android:layout_below="@+id/log_out_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/no_button"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:text="No"
+            android:backgroundTint="#6DCD71"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/yes_button"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/no_button"
+            android:layout_marginLeft="30dp"
+            android:text="Yes"
+            android:backgroundTint="#6DCD71"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textAllCaps="false" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

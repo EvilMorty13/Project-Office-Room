@@ -1,13 +1,17 @@
 package com.example.officeroom;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -101,6 +105,27 @@ public class OfficeRoomActivity extends AppCompatActivity {
 
     private void make_false_all() {
         for(int i=0;i<5;i++) selected_fragment[i]=false;
+    }
+
+    public void onBackPressed(){
+        AlertDialog.Builder office_room_alert = new AlertDialog.Builder(OfficeRoomActivity.this);
+        View office_room_View = getLayoutInflater().inflate(R.layout.dialog_layout, null);
+        office_room_alert.setView(office_room_View);
+
+        AlertDialog office_room_alertDialog = office_room_alert.create();
+
+        office_room_View.findViewById(R.id.no_button).setOnClickListener(v -> {
+            office_room_alertDialog.dismiss();
+        });
+
+        office_room_View.findViewById(R.id.yes_button).setOnClickListener(v -> {
+            Toast.makeText(this, "Exited from app successfully", Toast.LENGTH_SHORT).show();
+            office_room_alertDialog.dismiss();
+            finishAffinity();
+        });
+
+        office_room_alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        office_room_alertDialog.show();
     }
 
     private void findAllId() {
