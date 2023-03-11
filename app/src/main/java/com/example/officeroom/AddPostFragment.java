@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -38,8 +39,9 @@ import java.util.HashMap;
 public class AddPostFragment extends Fragment {
 
     FirebaseFirestore db;
+    FirebaseAuth auth;
 
-    String office_id,rank_id,office_name,rank_name;
+    String office_id,rank_id,office_name,rank_name,announcement_by;
 
     TextInputLayout addTitle,addAnnouncement;
     Button fragment_announcement_button;
@@ -74,6 +76,19 @@ public class AddPostFragment extends Fragment {
         }
         setFragOfficeName.setText(office_name);
         setFragRankName.setText(rank_name);
+
+        String userID = auth.getCurrentUser().getUid();
+
+        db.collection("USER ID").document(userID).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if(documentSnapshot.exists()){
+                            announcement_by = documentSnapshot.getString("NAME");
+                            announcement_by = announcement_by + ", " + rank_name;
+                        }
+                    }
+                });
 
         communication_partner = new ArrayList<>();
         db.collection(office_id).document(rank_id).collection("INFO").document("COMMUNICATION").get()
@@ -149,8 +164,7 @@ public class AddPostFragment extends Fragment {
                 HashMap <String,Object> announcements = new HashMap<>();
                 announcements.put("Title",text_title);
                 announcements.put("Announcements",text_announcement);
-
-
+                announcements.put("From", announcement_by);
 
                 for(String str : announcements_to_list){
                     db.collection(office_id).document(str).collection("ANNOUNCEMENTS").document(timestamp.toString()).set(announcements)
@@ -177,6 +191,7 @@ public class AddPostFragment extends Fragment {
     private void findAllId(View view) {
 
         db = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
 
         setFragOfficeName = view.findViewById(R.id.set_office_name_id);
         setFragRankName = view.findViewById(R.id.set_rank_name_id);

@@ -31,6 +31,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.myViewHolder>{
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
         holder.announcementTitle.setText(announcementList.get(position).getTitle());
         holder.announcementMessage.setText(announcementList.get(position).getAnnouncements());
+        holder.announcementFrom.setText(announcementList.get(position).getFrom());
     }
 
     @Override

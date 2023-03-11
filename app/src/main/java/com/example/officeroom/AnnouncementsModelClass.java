@@ -1,11 +1,12 @@
 package com.example.officeroom;
 
 public class AnnouncementsModelClass {
-    String Announcements,Title;
+    String Announcements,Title,From;
 
-    public AnnouncementsModelClass(String announcements, String title) {
+    public AnnouncementsModelClass(String announcements, String title, String from) {
         Announcements = announcements;
         Title = title;
+        From = from;
     }
 
     public AnnouncementsModelClass() {
@@ -18,5 +19,9 @@ public class AnnouncementsModelClass {
 
     public String getTitle() {
         return Title;
+    }
+
+    public String getFrom(){
+        return From;
     }
 }

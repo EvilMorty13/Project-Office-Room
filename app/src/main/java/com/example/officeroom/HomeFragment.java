@@ -71,13 +71,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 for(DocumentChange dc : value.getDocumentChanges()){
-//                    String title;
-//                    title = dc.getDocument().getString("Title");
-//                    Log.d(TAG, "onEvent: "+title);
-
                     AnnouncementsModelClass announcementsModelClass = dc.getDocument().toObject(AnnouncementsModelClass.class);
                     announcementList.add(announcementsModelClass);
-
                     dataAdapter.notifyDataSetChanged();
                 }
             }

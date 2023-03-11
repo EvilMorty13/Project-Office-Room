@@ -18,13 +18,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.nio.Buffer;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -36,6 +41,7 @@ public class RegistrationActivity extends AppCompatActivity {
     Button regCreateAccount,regSignIn;
 
     FirebaseAuth auth;
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +62,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 boolean checked = checkConditions(text_full_name,text_mail,text_password,text_confirm_password);
 
-                if(checked) registerAccount(text_mail,text_password);
+                if(checked) registerAccount(text_mail,text_password,text_full_name);
 
             }
         });
@@ -96,12 +102,16 @@ public class RegistrationActivity extends AppCompatActivity {
         },SPLASH_DURATION);
     }
 
-    private void registerAccount(String text_mail, String text_password) {
+    private void registerAccount(String text_mail, String text_password, String text_full_name) {
         auth.createUserWithEmailAndPassword(text_mail,text_password).addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(RegistrationActivity.this, "Account Created", Toast.LENGTH_SHORT).show();
+                    String userID = auth.getCurrentUser().getUid();
+                    Map<String,String> note= new HashMap<>();
+                    note.put("NAME",text_full_name);
+                    db.collection("USER ID").document(userID).set(note);
                     RegistrationToLoginAnimation();
                 }else{
                     Toast.makeText(RegistrationActivity.this, "Server Problem", Toast.LENGTH_SHORT).show();
@@ -141,6 +151,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private void findAllId() {
         auth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         fullName = (TextInputLayout) findViewById(R.id.fullNameId);
         regMail = (TextInputLayout) findViewById(R.id.regMailId);
