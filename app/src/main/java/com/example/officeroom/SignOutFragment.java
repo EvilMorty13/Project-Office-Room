@@ -20,7 +20,7 @@ import java.util.Calendar;
 
 
 public class SignOutFragment extends Fragment {
-    Button sign_out;
+
 
 
 
@@ -33,20 +33,14 @@ public class SignOutFragment extends Fragment {
 
 
 
-        sign_out.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Toast.makeText(getActivity(),"Signed Out Succesfully",Toast.LENGTH_SHORT).show();
-            }
-        });
+
 
         return view;
     }
 
     private void findAllId(View view) {
 
-        sign_out = view.findViewById(R.id.signOut);
+
 
     }
 

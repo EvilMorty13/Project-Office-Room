@@ -3,21 +3,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ProfileFragment">
 
-    <ImageView
-        android:id="@+id/profileLogo"
+
+    <RelativeLayout
+        android:id="@+id/top_portion"
         android:layout_width="match_parent"
-        android:layout_height="386dp"
-        android:layout_marginTop="-90dp"
-        android:background="@color/backgroundColor"
-        android:src="@drawable/profile" />
+        android:layout_height="300dp"
+        android:background="@color/backgroundColor">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/cicular_profile_pic"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/profile_pic"
+            app:civ_border_width="5dp"
+            app:civ_border_color="@color/white"/>
+
+        <TextView
+            android:id="@+id/profile_name"
+            android:layout_width="250dp"
+            android:layout_height="55dp"
+            android:layout_toRightOf="@+id/cicular_profile_pic"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/textview_border_top"
+            android:padding="15dp"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:id="@+id/profile_rank"
+            android:layout_width="250dp"
+            android:layout_height="55dp"
+            android:layout_toRightOf="@+id/cicular_profile_pic"
+            android:layout_marginTop="165dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/textview_border_top"
+            android:padding="15dp"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
 
     <TextView
-        android:id="@+id/profile_name"
+        android:id="@+id/profile_institute"
         android:layout_width="400dp"
         android:layout_height="55dp"
-        android:layout_below="@+id/profileLogo"
+        android:layout_below="@+id/top_portion"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:background="@drawable/textview_border"
@@ -30,7 +68,7 @@
         android:id="@+id/profile_email"
         android:layout_width="400dp"
         android:layout_height="55dp"
-        android:layout_below="@+id/profile_name"
+        android:layout_below="@+id/profile_institute"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:background="@drawable/textview_border"
@@ -52,37 +90,15 @@
         android:textColor="@color/black"
         android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/profile_rank"
-        android:layout_width="400dp"
-        android:layout_height="55dp"
-        android:layout_below="@+id/profile_created"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/textview_border"
-        android:padding="15dp"
 
-        android:textColor="@color/black"
-        android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/profile_institute"
-        android:layout_width="400dp"
-        android:layout_height="55dp"
-        android:layout_below="@+id/profile_rank"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/textview_border"
-        android:padding="15dp"
 
-        android:textColor="@color/black"
-        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/profile_last_login"
         android:layout_width="400dp"
         android:layout_height="55dp"
-        android:layout_below="@+id/profile_institute"
+        android:layout_below="@+id/profile_created"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:background="@drawable/textview_border"

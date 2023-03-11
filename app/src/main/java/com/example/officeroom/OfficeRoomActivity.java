@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class OfficeRoomActivity extends AppCompatActivity {
 
@@ -88,7 +90,13 @@ public class OfficeRoomActivity extends AppCompatActivity {
                     make_false_all();
                     selected_fragment[3]=true;
 
-                    fragmentTransaction.replace(R.id.fragment_container_id,signOutFragment).commit();
+
+                    ShowDialogBox();
+
+
+
+
+                    //fragmentTransaction.replace(R.id.fragment_container_id,signOutFragment).commit();
                     return true;
                 }else if(item.getItemId()==R.id.about_us_bar && selected_fragment[4]==false){
                     make_false_all();
@@ -101,6 +109,32 @@ public class OfficeRoomActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private void ShowDialogBox() {
+
+
+        AlertDialog.Builder sign_out_alert = new AlertDialog.Builder(OfficeRoomActivity.this);
+        View sign_out_View = getLayoutInflater().inflate(R.layout.dialog_layout_sign_out, null);
+        sign_out_alert.setView(sign_out_View);
+
+        AlertDialog sign_out_alertDialog = sign_out_alert.create();
+        sign_out_alertDialog.setCancelable(false);
+
+        sign_out_View.findViewById(R.id.sign_out_no_button).setOnClickListener(v -> {
+            sign_out_alertDialog.dismiss();
+        });
+
+        sign_out_View.findViewById(R.id.sign_out_yes_button).setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(OfficeRoomActivity.this, "Signed Out Successfully", Toast.LENGTH_SHORT).show();
+            sign_out_alertDialog.dismiss();
+            startActivity(new Intent(OfficeRoomActivity.this,LoginActivity.class));
+        });
+
+        sign_out_alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        sign_out_alertDialog.show();
+
     }
 
     private void make_false_all() {

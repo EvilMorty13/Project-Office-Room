@@ -45,14 +45,31 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         findAllId(view);
 
+
+        // DATABASE
         String nm = "Mokles Mia";
         //name.setMovementMethod(new ScrollingMovementMethod());
         name.setText("Name : "+nm);
 
 
+        // DATABASE
+        String rn = "CEO";
+        //rank_name.setMovementMethod(new ScrollingMovementMethod());
+        rank_name.setText("Rank : "+rn);
+
+
+        // DATABASE
+        String in = "Vivasoft";
+        //institute_name.setMovementMethod(new ScrollingMovementMethod());
+        institute_name.setText("Institute : "+in);
+
+
+
         String em = auth.getCurrentUser().getEmail();
         //email.setMovementMethod(new ScrollingMovementMethod());
         email.setText("Email : "+em);
+
+
 
         long ts_creation_time = auth.getCurrentUser().getMetadata().getCreationTimestamp();
         Date creation_date = (new Date(ts_creation_time));
@@ -62,13 +79,8 @@ public class ProfileFragment extends Fragment {
         created.setText("Account Created : "+creation_time);
 
 
-        String rn = "CEO";
-        //rank_name.setMovementMethod(new ScrollingMovementMethod());
-        rank_name.setText("Rank : "+rn);
 
-        String in = "Vivasoft";
-        //institute_name.setMovementMethod(new ScrollingMovementMethod());
-        institute_name.setText("Institute : "+in);
+
 
         long ts_latest_login = auth.getCurrentUser().getMetadata().getLastSignInTimestamp();
         Date latest_login_date = (new Date(ts_latest_login));
