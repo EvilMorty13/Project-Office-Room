@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -36,7 +37,10 @@ public class JoinOfficeActivity extends AppCompatActivity {
 
     Button joinOfficeSignInButton,joinOfficeSignUpButton;
 
+    String userId,userName;
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseAuth auth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,18 @@ public class JoinOfficeActivity extends AppCompatActivity {
         getWindow().setNavigationBarColor(ContextCompat.getColor(JoinOfficeActivity.this,R.color.backgroundColor));
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         findAllId();
+
+
+        userId = auth.getCurrentUser().getUid();
+        db.collection("USER ID").document(userId).get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                if(documentSnapshot.exists()){
+                                    userName = documentSnapshot.getString("NAME");
+                                }
+                            }
+                        });
 
         joinOfficeSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +88,7 @@ public class JoinOfficeActivity extends AppCompatActivity {
                                         intent.putExtra("rank_name_string",rank_name_string);
                                         intent.putExtra("text_office_id",text_office_id);
                                         intent.putExtra("text_rank_id",text_rank_id);
+                                        intent.putExtra("userName",userName);
 
                                         startActivity(intent);
                                         Toast.makeText(JoinOfficeActivity.this, "Join Office Successful", Toast.LENGTH_SHORT).show();

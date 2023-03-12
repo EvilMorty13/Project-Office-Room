@@ -14,13 +14,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class OfficeRoomActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
+
+    FirebaseAuth auth;
+    FirebaseFirestore db;
 
     boolean[] selected_fragment = {true,false,false,false,false};
 
@@ -39,11 +45,13 @@ public class OfficeRoomActivity extends AppCompatActivity {
         String rank_name_string = getIntent().getStringExtra("rank_name_string");
         String text_office_id = getIntent().getStringExtra("text_office_id");
         String text_rank_id = getIntent().getStringExtra("text_rank_id");
+        String userName = getIntent().getStringExtra("userName");
 
         data.putString("office_name_string",office_name_string);
         data.putString("rank_name_string",rank_name_string);
         data.putString("text_office_id",text_office_id);
         data.putString("text_rank_id",text_rank_id);
+        data.putString("userName",userName);
 
         HomeFragment homeFragment = new HomeFragment();
         homeFragment.setArguments(data);
@@ -62,6 +70,7 @@ public class OfficeRoomActivity extends AppCompatActivity {
         addPostFragment.setArguments(data);
 
         ProfileFragment profileFragment = new ProfileFragment();
+        profileFragment.setArguments(data);
 
         SignOutFragment signOutFragment = new SignOutFragment();
 
@@ -95,7 +104,7 @@ public class OfficeRoomActivity extends AppCompatActivity {
 
 
 
-
+                    
                     //fragmentTransaction.replace(R.id.fragment_container_id,signOutFragment).commit();
                     return true;
                 }else if(item.getItemId()==R.id.about_us_bar && selected_fragment[4]==false){
@@ -163,6 +172,8 @@ public class OfficeRoomActivity extends AppCompatActivity {
     }
 
     private void findAllId() {
+        auth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
         bottomNavigationView = findViewById(R.id.bottom_navigation_id);
     }
 }

@@ -37,6 +37,8 @@ public class ProfileFragment extends Fragment {
 
     TextView last_login;
 
+    String office_name_string,rank_name_string,office_id_string,rank_id_string,user_name_string;
+
     private FirebaseAuth auth;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,29 +47,23 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         findAllId(view);
 
+        Bundle data = getArguments();
+        if(data!=null){
+            office_name_string = data.getString("office_name_string");
+            rank_name_string = data.getString("rank_name_string");
+            office_id_string = data.getString("text_office_id");
+            rank_id_string = data.getString("text_rank_id");
+            user_name_string = data.getString("userName");
+        }
 
-        // DATABASE
-        String nm = "Mokles Mia";
-        //name.setMovementMethod(new ScrollingMovementMethod());
-        name.setText("Name : "+nm);
-
-
-        // DATABASE
-        String rn = "CEO";
-        //rank_name.setMovementMethod(new ScrollingMovementMethod());
-        rank_name.setText("Rank : "+rn);
-
-
-        // DATABASE
-        String in = "Vivasoft";
-        //institute_name.setMovementMethod(new ScrollingMovementMethod());
-        institute_name.setText("Institute : "+in);
+        name.setText(user_name_string);
+        rank_name.setText(rank_name_string);
+        institute_name.setText(office_name_string);
 
 
 
         String em = auth.getCurrentUser().getEmail();
-        //email.setMovementMethod(new ScrollingMovementMethod());
-        email.setText("Email : "+em);
+        email.setText(em);
 
 
 
@@ -75,7 +71,6 @@ public class ProfileFragment extends Fragment {
         Date creation_date = (new Date(ts_creation_time));
         SimpleDateFormat creation_sfd = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss",Locale.getDefault());
         String creation_time = creation_sfd.format(creation_date);
-        //created.setMovementMethod(new ScrollingMovementMethod());
         created.setText("Account Created : "+creation_time);
 
 
@@ -86,7 +81,6 @@ public class ProfileFragment extends Fragment {
         Date latest_login_date = (new Date(ts_latest_login));
         SimpleDateFormat latest_login_sfd = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss",Locale.getDefault());
         String latest_login = latest_login_sfd.format(latest_login_date);
-        //last_login.setMovementMethod(new ScrollingMovementMethod());
         last_login.setText("Last Login : "+latest_login);
 
 
