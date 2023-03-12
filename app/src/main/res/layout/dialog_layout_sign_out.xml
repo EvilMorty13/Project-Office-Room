@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@drawable/rounded_dialog_sign_out"
+    android:background="@drawable/rounded_dialog"
     android:padding="20dp"
     app:circularflow_radiusInDP="20dp">
 
@@ -40,7 +40,7 @@
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:text="No"
-            android:backgroundTint="#FB4747"
+            android:backgroundTint="#6DCD71"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textAllCaps="false" />
@@ -52,7 +52,7 @@
             android:layout_toRightOf="@+id/sign_out_no_button"
             android:layout_marginLeft="30dp"
             android:text="Yes"
-            android:backgroundTint="#FB4747"
+            android:backgroundTint="#6DCD71"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textAllCaps="false" />

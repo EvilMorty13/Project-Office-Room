@@ -10,7 +10,7 @@
     <RelativeLayout
         android:id="@+id/top_portion"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="200dp"
         android:background="@color/backgroundColor">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -26,11 +26,11 @@
         <TextView
             android:id="@+id/profile_name"
             android:layout_width="250dp"
-            android:layout_height="55dp"
+            android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/cicular_profile_pic"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="45dp"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/textview_border_top"
+
             android:padding="15dp"
             android:textColor="@color/white"
             android:textSize="20sp" />
@@ -39,11 +39,11 @@
         <TextView
             android:id="@+id/profile_rank"
             android:layout_width="250dp"
-            android:layout_height="55dp"
+            android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/cicular_profile_pic"
-            android:layout_marginTop="165dp"
+            android:layout_marginTop="110dp"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/textview_border_top"
+
             android:padding="15dp"
             android:textColor="@color/white"
             android:textSize="20sp" />
@@ -54,7 +54,7 @@
     <TextView
         android:id="@+id/profile_institute"
         android:layout_width="400dp"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/top_portion"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
@@ -67,7 +67,7 @@
     <TextView
         android:id="@+id/profile_email"
         android:layout_width="400dp"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/profile_institute"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
@@ -80,7 +80,7 @@
     <TextView
         android:id="@+id/profile_created"
         android:layout_width="400dp"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/profile_email"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
@@ -97,7 +97,7 @@
     <TextView
         android:id="@+id/profile_last_login"
         android:layout_width="400dp"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/profile_created"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
