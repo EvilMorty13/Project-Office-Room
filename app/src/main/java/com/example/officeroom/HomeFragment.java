@@ -23,6 +23,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void receievedAnnouncements() {
-        db.collection(office_id).document(rank_id).collection("ANNOUNCEMENTS").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection(office_id).document(rank_id).collection("ANNOUNCEMENTS").orderBy("Time", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 for(DocumentChange dc : value.getDocumentChanges()){

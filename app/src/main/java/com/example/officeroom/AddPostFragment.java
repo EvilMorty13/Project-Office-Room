@@ -165,6 +165,7 @@ public class AddPostFragment extends Fragment {
                 announcements.put("Title",text_title);
                 announcements.put("Announcements",text_announcement);
                 announcements.put("From", announcement_by);
+                announcements.put("Time",timestamp.toString());
 
                 for(String str : announcements_to_list){
                     db.collection(office_id).document(str).collection("ANNOUNCEMENTS").document(timestamp.toString()).set(announcements)
