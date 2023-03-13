@@ -41,7 +41,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/cicular_profile_pic"
-            android:layout_marginTop="110dp"
+            android:layout_marginTop="84dp"
             android:layout_marginLeft="10dp"
 
             android:padding="15dp"
@@ -60,8 +60,9 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/textview_border"
         android:padding="15dp"
-
-        android:textColor="@color/black"
+        android:backgroundTint="@color/backgroundColor"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/white"
         android:textSize="20sp" />
 
     <TextView
@@ -73,8 +74,9 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/textview_border"
         android:padding="15dp"
-
-        android:textColor="@color/black"
+        android:backgroundTint="@color/backgroundColor"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/white"
         android:textSize="20sp" />
 
     <TextView
@@ -86,13 +88,10 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/textview_border"
         android:padding="15dp"
-
-        android:textColor="@color/black"
+        android:backgroundTint="@color/backgroundColor"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/white"
         android:textSize="20sp" />
-
-
-
-
 
     <TextView
         android:id="@+id/profile_last_login"
@@ -103,8 +102,9 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/textview_border"
         android:padding="15dp"
-
-        android:textColor="@color/black"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/backgroundColor"
         android:textSize="20sp" />
 
 
